@@ -7,16 +7,41 @@
 
 }
 
+p {
+    line-height: 1.4em;
+}
+
+.intro-title {
+    font-size: 8em;
+    margin-bottom: 0.5em;
+}
+
+
+a {
+    text-decoration: underline;
+    color:#2e2e2e;
+    
+    line-height: 1.4em;
+}
+
+.intro-navigate {
+    border-top: #2e2e2e solid 1px;
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+
+}
+
 .bg-bright {
     background: #bbc4c5;
-
+    color: #2e2e2e;
 
 }
 
 
 .bg-dark {
     background: #2e2e2e;
-
+    color: #bbc4c5;
 
 }
 
@@ -24,6 +49,8 @@ body {
     font-family: "Noto Sans Elbasan", sans-serif;
     font-weight: 400;
     font-style: normal;
+
+   
 
     margin: 0;
 }
@@ -36,29 +63,22 @@ body {
     row-gap: 2em;
 }
 
-
-
-h1 {
-    margin: 0;
+.p-top {
+    padding-top: var(--nav-height);
 }
 
-h2 {
-    margin: 0;
-}
-
-h3 {
-    margin: 0;
-}
-
-p {
-    margin: 0;
-}
 
 .nav-container {
 
     width: 100%;
     height: var(--nav-height);
     position: fixed;
+}
+
+
+.intro-text p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .nav {
@@ -80,14 +100,30 @@ p {
 }
 
 .intro {
-    grid-column: 2;
     height: 90vh;
+    grid-column: 2;
+}
+
+.projects-desc {
+    border-bottom: #bbc4c5 1px solid;
+}
+
+.col-2 {
+    
+    
+    align-items: start;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
 }
 
 .project-showcase {
     grid-column: 2;
 
-    height: 45vh;
+
+
+
+    height: 60vh;
 }
 
 
