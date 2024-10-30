@@ -7,6 +7,11 @@
 
 }
 
+img {
+    width: 100%;
+    object-fit: cover;
+}
+
 p {
     line-height: 1.4em;
 }
@@ -16,16 +21,20 @@ p {
     margin-bottom: 0.5em;
 }
 
+h2 {
+    margin-top: 0;
+}
+
 
 a {
     text-decoration: underline;
-    color:#2e2e2e;
+    color: inherit;
     
     line-height: 1.4em;
 }
 
 .intro-navigate {
-    border-top: #2e2e2e solid 1px;
+    border-top: #bbc4c5 solid 1px;
     margin-top: 1em;
     display: flex;
     flex-direction: column;
@@ -50,8 +59,6 @@ body {
     font-weight: 400;
     font-style: normal;
 
-   
-
     margin: 0;
 }
 
@@ -67,6 +74,11 @@ body {
     padding-top: var(--nav-height);
 }
 
+.py-3 {
+    padding-top: 3em;
+    padding-bottom: 3.5em;
+}
+
 
 .nav-container {
 
@@ -75,6 +87,11 @@ body {
     position: fixed;
 }
 
+
+.padding {
+    padding-top: var(--nav-height);
+  
+}
 
 .intro-text p {
     margin-top: 0.5em;
@@ -105,12 +122,10 @@ body {
 }
 
 .projects-desc {
-    border-bottom: #bbc4c5 1px solid;
+    border-bottom: #2e2e2e 1px solid;
 }
 
 .col-2 {
-    
-    
     align-items: start;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -118,13 +133,59 @@ body {
 }
 
 .project-showcase {
+    margin-bottom: 3em;
+    grid-column: 2;
+}
+
+
+
+.project {
     grid-column: 2;
 
-
-
-
-    height: 60vh;
+    margin-bottom: 2em;
 }
+
+
+.footer {
+    height: 30vh;
+}
+
+
+.xp {
+    margin-top: 5em;
+
+    display: flex;
+    justify-content: end;
+
+
+
+}
+
+.project h3 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-size: xx-large;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Mobile Styles (Small Screens) */
