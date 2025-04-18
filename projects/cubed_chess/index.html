@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="css/main.css">
+
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.162.0/examples/jsm/"
+          }
+        }
+    </script>
+
+</head>
+
+
+<body>
+
+
+<main class="container">
+    <div>
+
+
+    </div>
+
+    <div class="main">
+        <div>
+            <h1>Chess^3</h1>
+        </div>
+
+        <div id="play-btn" class="btn-container">
+            <button id="start-btn" class="start-btn">Start game</button>
+        </div>
+
+        <div id="player-view" class="player-view">
+            <div>
+                <h2 id="white-pieces">Player 1</h2>
+                <p>white pieces</p>
+            </div>
+
+            <div>
+                <h2 id="black-pieces">Player 2</h2>
+                <p>black pieces</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info">
+        <div>Tile pressed:</div>
+        <div id="lastTile"></div>
+    </div>
+
+</main>
+
+
+</body>
+
+<script defer type="module" src="./js/index.js"></script>
+
+</html>

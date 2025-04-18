@@ -1,0 +1,49 @@
+
+
+body {
+    margin: 0;
+}
+
+.container {
+    font-family: Consolas, sans-serif;
+
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    position: fixed;
+    color: aliceblue;
+}
+
+.info {
+    padding: 3em;
+    align-self: center;
+}
+
+.main {
+    flex-direction: column;
+    display: flex;
+    align-content: center;
+}
+
+.start-btn {
+    height: 3em;
+    width: 9em;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+.player-view {
+
+    gap: 10em;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.players-turn {
+    text-decoration: underline;
+}
