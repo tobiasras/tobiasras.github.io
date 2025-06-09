@@ -42,6 +42,53 @@ export class Birch extends Model {
 
 }
 
+/**
+ * Works the same way as birch model:
+ */
+export class KMeans extends Birch {
+    constructor(data_url, model_desc) {
+        super(data_url, model_desc)
+    }
+    predict(recipe) {
+        super.predict(recipe);
+    }
+}
+
+
+
+
+
+
+export class GMM extends Model {
+    constructor(data_url, model_desc) {
+        super();
+
+
+
+        this.setup()
+    }
+
+
+    async setup() {
+
+    }
+
+    predict(recipe) {
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 export const availableModels = {
     "birch_1_7": "assets/data/birch_1_7/birch_centers_1_7.json"
 }

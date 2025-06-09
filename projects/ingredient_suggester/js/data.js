@@ -1,7 +1,7 @@
 let mlbClasses, labelIndex, svdComponents;
 
 Promise.all([
-  fetch("assets/data/mlb_Classes.json").then(res => res.json()),
+  fetch("assets/data/mlb_cÆlasses.json").then(res => res.json()),
   fetch("assets/data/svd_components.json").then(res => res.json())
 ]).then(([mlb, svdRaw]) => {
   mlbClasses = mlb;
