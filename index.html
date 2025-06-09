@@ -24,12 +24,12 @@
     </nav>
     <!-- IS FIXED END -->
 
-    <section class="container bg-dark  nav-spacer">
+    <section class="container bg-dark frontsection nav-spacer">
         <div class="intro col-2">
 
             <div class="intro-text">
                 <h1 class="intro-title">Tobias Rasmussen</h1>
-                <p><b>Student: DTU Software technology, 4th semester.</b></p>
+                <p><b>Student: DTU Software technology.</b></p>
                 <p>
                     type and scrambled it to make a type specimen book. It has survived not only five centuries, but
                     also the
@@ -41,12 +41,14 @@
                     software like Aldus PageMaker including versions of Lorem Ipsum
                 </p>
 
+                <!--
                 <div class="intro-navigate">
                     <p><b>Sections:</b></p>
                     <a href="#">Homepage</a>
                     <a href="#">Projects</a>
                     <a href="#">Cv</a>
                 </div>
+                -->
             </div>
 
             <div class="xp">
@@ -56,85 +58,82 @@
     </section>
 
 
-    <section class="container bg-bright py-3">
-        <div class="project-showcase col-2">
-            <div class="projects-desc">
-                <h2>Highlighted Projects:</h2>
-                <p>A selction of projects ive created in my freetime or at university</p>
-            </div>
-        </div>
 
-        <div class="project col-2">
-            <img src="/images/index/image.png">
-
-            <div>
-                <h3>Component 2.0 Website</h3>
-                <p>
-                    A fullstack application, made for handling the music at the student bar at KEA.
-                </p>
-
-                <p>
-                    At the bar we had a problem with people not respecting the music queue, with led to bad wibes. To
-                    solve this problem me and 2 other students decided to create a web app, letting the particapents of
-                    the bar add songs like a jukebox.
-                </p>
-
-                <p>
-                    We used a react frontend, express,js as the backend. the 2 services communicated over socket.io, and
-                    REST. For handling the music features we used the Spotify API.
-                </p>
-
-                <a href="">Read more</a>
-            </div>
-        </div>
-
-
-        <div class="project col-2">
-            <div>
-                <h3>Spotify queuer</h3>
-                <p>
-                    A fullstack application, made for handling the music at the student bar at KEA.
-                </p>
-
-                <p>
-                    At the bar we had a problem with people not respecting the music queue, with led to bad wibes. To
-                    solve this problem me and 2 other students decided to create a web app, letting the particapents of
-                    the bar add songs like a jukebox.
-                </p>
-
-                <p>
-                    We used a react frontend, express,js as the backend. the 2 services communicated over socket.io, and
-                    REST. For handling the music features we used the Spotify API.
-                </p>
-
-                <a href="">Read more</a>
-            </div>
-
-            <img src="/images/index/image.png">
-        </div>
-
-
-
-    </section>
 
 
     <section class="container bg-dark py-3">
         <div class="project-showcase col-2">
             <div class="projects-desc">
-                <h2>More projects:</h2>
+                <h2>Projects:</h2>
             </div>
         </div>
 
 
         <div class="contrainer project-gallery col-3">
-            <a href="projects/cubed_chess/index.html" class="project-card">
+            <a class="project-card" href="projects/cubed_chess/index.html" >
                 <img class="" src="images/index/image.png">
+                <div class="tags">
+                    <p>Game Dev</p>
+                    <p>Three.js</p>
+                </div>
                 <div class="project-card-desc">
-                    <h3>3d chess (with demo)</h3>
-                    <p>Chess on a 3d cube.</p>
+                    <h3>Chess on a 3d surface</h3>
+                    <p>Play chess on top of a cube</p>
                 </div>
             </a>
 
+            <a class="project-card" href="projects/ingredient_suggester/index.html">
+                <img class="" src="images/index/ingredient.png">
+                <div class="tags">
+                    <p>Machine Learning</p>
+                    <p>Clustering</p>
+                </div>
+                <div class="project-card-desc">
+                    <h3>Ingredient suggester</h3>
+                    <p>Suggest new ingreidents from a recipe</p>
+                </div>
+            </a>
+
+            
+            <a  class="project-card" href="">
+                <img class="" src="images/index/image.png">
+                <div class="tags">
+                    <div><p>Image Visions</p></div>
+                    <div><p>Pathing</p></div>
+                </div>
+                <div class="project-card-desc">
+                    <h3>LEGO Mindstorm CDIO Project</h3>
+                    <p>Building a atuonomous robot to pick up ping pong balls</p>
+                </div>
+            </a>
+
+            
+            <a class="project-card" href="">
+                <img class="" src="images/index/image.png">
+                <div class="tags"><p>Web Dev</p><p>React</p></div>
+
+                <div class="project-card-desc">
+                    <h3>Spotify Queuer</h3>
+                    <p>Web app for maneging a song queue at the student bar</p>
+                </div>
+            </a>
+            
+            
+
+            
+            <a class="project-card" href="">
+                <img class="" src="images/index/image.png">
+                <div class="tags"><p>Web Dev</p><p>Umbraco</p><p>C#</p></div>
+
+                <div class="project-card-desc">
+                    <h3>Component 2.0 Website</h3>
+                    <p>Rebuild dbcg's on website in php</p>
+                </div>
+            </a>
+            
+
+
+            <!--
             <a href="" class="project-card">
                 <img class="" src="images/index/image.png">
                 <div class="project-card-desc">
@@ -142,70 +141,47 @@
                     <p>Short description of the project.</p>
                 </div>
             </a>
-
-            <a href="" class="project-card">
-                <img class="" src="images/index/image.png">
-                <div class="project-card-desc">
-                    <h3>Project Title</h3>
-                    <p>Short description of the project.</p>
-                </div>
-            </a>
-
-            <a href="" class="project-card">
-                <img class="" src="images/index/image.png">
-                <div class="project-card-desc">
-                    <h3>Project Title</h3>
-                    <p>Short description of the project.</p>
-                </div>
-            </a>
-
-            <a href="" class="project-card">
-                <img class="" src="images/index/image.png">
-                <div class="project-card-desc">
-                    <h3>Project Title</h3>
-                    <p>Short description of the project.</p>
-                </div>
-            </a>
-
-            <a href="" class="project-card">
-                <img class="" src="images/index/image.png">
-                <div class="project-card-desc">
-                    <h3>Project Title</h3>
-                    <p>Short description of the project.</p>
-                </div>
-            </a>
-
-            <a href="" class="project-card">
-                <img class="" src="images/index/image.png">
-                <div class="project-card-desc">
-                    <h3>Project Title</h3>
-                    <p>Short description of the project.</p>
-                </div>
-            </a>
-
+            -->
         </div>
 
 
     </section>
 
 
-    <section class="container bg-bright py-3">
-        <div class="project-showcase col-2">
-            <div class="projects-desc">
+    <section class="container bg-bright py-3 h-10">
+        <div class="project-showcase">
+            <div class="">
                 <h2>Experince:</h2>
             </div>
+            <div class="col-2">
+                <div>
+                    <h3>Education:</h3>
+                    <ul>
+                        <li>Software Engineering - DTU BEng</li>
+                        <li>Datamatiker - KEA - AP Degree</li>
+                        <li>Entreprenørskab og Design - KEA - AP Degree</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Work experince:</h3>
+                    <ul>
+                        <li>Studentworker - Web Developer for DBCG (Danish Breast Cancer Group)</li>
+                        <li>Self-employed - Web Developer</li>
+                        <li>Internship - LEGO R&D Moulding</li>
+                        <li>Studentworker - Danske BoligArkitekter</li>
+                    </ul>
+
+                </div>
+
+            </div>
         </div>
+
+
 
     </section>
 
 
-    <footer class="container  bg-dark py-3">
-        <div class="project-showcase col-2">
-            <div class="projects-desc">
-                <h2>footer</h2>
-            </div>
-        </div>
-    </footer>
 
 </body>
 

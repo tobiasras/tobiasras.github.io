@@ -20,12 +20,11 @@ const textures = {
     "highlight_1": textureLoader.load('./assets/highlights/highlight_1.svg')
 }
 
-
-
 export function displayPiece(tile, type, isFlipped) {
     // view
     let model = scene.getObjectByName(`$:${tile}`)
     let texture = textures[type]
+    
     texture.colorSpace = THREE.SRGBColorSpace
     model.material.map = texture
     model.material.transparent = true

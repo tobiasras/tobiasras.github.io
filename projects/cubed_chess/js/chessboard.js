@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-const segmentSize = 3 / 8; // Assuming the chessboard size is 3 and it has 8 segments per side
+const segmentSize = 3 / 8;
 
 export function createBoard(scene) {
     const gameBoard = []

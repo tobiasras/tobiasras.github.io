@@ -1,20 +1,30 @@
 :root {
     --col: 10% 80% 10%;
     
-    --nav-height: 3em;
+    --nav-height: 5em;
     
-    --color-bright: #bbc4c5;
-    --color-dark: #171616;
+    --color-white: #FFFFFF;
+    --color-beige: #FFD19D;
+    --color-gray: #AEB5BD;
+    --color-lightblue: #4D80C9;
+    --color-red: #E93841;
+    --color-darkpurble: #100820;
+    --color-purble: #511E43;
+    --color-darkblue: #054494;
+    --color-orange: #F1892D;
+    --color-brown: #823E2C;
+    --color-lightpink: #FFA9A9;
+    --color-lightgreen: #5AE150;
+    --color-yellow: #FFE947;
+    --color-lightpurble: #7D3EBF;
+    --color-pink: #EB6C82;
+    --color-greem: #1E8A4C;
 
+    --color-bright: var(--color-darkpurble);
+    --color-dark: var(--color-white);
+ 
 }
 
-.project img {
-    aspect-ratio: 4/3;
-
-    border-radius: 1em;
-    width: 100%;
-    object-fit: cover;
-}
 
 p {
     line-height: 1.4em;
@@ -23,6 +33,7 @@ p {
 .intro-title {
     font-size: 8em;
     margin-bottom: 0.5em;
+    
 }
 
 h2 {
@@ -37,6 +48,14 @@ a {
     
     line-height: 1.4em;
 }
+
+
+li {
+    margin: 0.5rem 0;   
+    
+
+}
+
 
 .intro-navigate {
     border-top: var(--color-bright) solid 1px;
@@ -97,6 +116,9 @@ body {
 }
 
 .intro-text p {
+    padding: 0.5rem;
+    background-color: #FFFFFF;
+
     margin-top: 0.5em;
     margin-bottom: 0.5em;
 }
@@ -122,10 +144,6 @@ body {
 .intro {
     grid-column: 2;
     height: 90vh;
-}
-
-.projects-desc {
-    border-bottom: var(--color-dark) 1px solid;
 }
 
 .col-2 {
@@ -155,7 +173,7 @@ body {
 .project-card img {
     border-radius: 0.5em;
     object-fit: cover;
-    aspect-ratio: 8/3;
+    aspect-ratio: 2/1;
     width: 100%;
 }
 
@@ -173,13 +191,51 @@ body {
     margin-bottom: 0; 
 
 }
+
+.tags {
+    display: flex;
+    justify-content: start;
+    gap: 0.3rem;
+
+
+    align-items: center ;
+
+    margin: 0;
+    padding: 0;
+
+}
+
+.tags p {
+    font-size: 0.7rem;
+
+    margin: 0;
+
+    color: var(--color-white);
+    alignment-baseline: central;
+    background: var(--color-gray);
+
+    padding: 0.4rem;
+
+    font-weight: bold;
+
+    border-radius: 5rem;
+    display: flex;               /* make the <p> a flex container */
+    align-items: center;         /* vertically center text */
+    justify-content: center;     /* horizontally center text (optional) */
+    
+
+}
+
+
+
+
 .project-card:hover {
     transform: translateY(-5px);
     transition: transform 0.3s ease;
 }
 
 .project-card-desc {
-    padding-top: 1em;
+    padding-top: 0;
     padding-bottom: 1em;
 }
 
@@ -205,10 +261,8 @@ body {
 }
 
 
-
-.project {
-    grid-column: 2;
-    margin-bottom: 2em;
+.h-10 {
+    min-height: 30rem;
 }
 
 
@@ -217,12 +271,6 @@ body {
 }
 
 
-
-.project h3 {
-    margin-top: 0;
-    margin-bottom: 0.5em;
-    font-size: xx-large;
-}
 
 
 

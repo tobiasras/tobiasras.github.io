@@ -1,40 +1,16 @@
 import {createBoard} from "./chessboard.js";
 import {animateLoop, scene, retrieveTileOnClick} from "./threeSettings.js";
-
+import { UIController } from "./ui.js";
 import {
     checkCheckmate,
     getGameBoardTileFromTile, movePiece, removeAllHighlights,
     setupPieces, showPossibleMoves,
 } from "./gamecontroller.js";
 
-
-const startBtn = document.getElementById("start-btn")
-const playerView = document.getElementById("player-view")
-const whitePiecesHeader = document.getElementById("white-pieces")
-const blackPiecesHeader = document.getElementById("black-pieces")
-
-playerView.style.display = "none"
-startBtn.addEventListener("click", () => {
-    startBtn.style.display = "none"
-    playerView.style.display = "flex"
-
-    whitePiecesHeader.style.fontWeight = 'bold';
-    whitePiecesHeader.style.textDecoration = 'underline';
-    blackPiecesHeader.style.color = '#ffffff';
-    whitePiecesHeader.style.color = '#61ff61';
-    blackPiecesHeader.style.textDecoration = ''; // Reset style for blackPiecesHeader
-    blackPiecesHeader.style.fontWeight = '';
-
-    removeAllHighlights([...possibleMoves])
-    startGame()
-})
-
-
-
+const ui = new UIController()
+ui.startGame()
 
 export let gameBoard = {}
-
-
 
 let whiteKing
 let blackKing
@@ -71,8 +47,6 @@ document.onmousedown = (event) => {
 
     const tileString = tileModel.object.name
 
-    document.getElementById("lastTile").innerText = tileString
-
     if (hasHighlighted) {
         let pieceToMove = false
         let destination
@@ -108,12 +82,8 @@ document.onmousedown = (event) => {
                         type : currentPlayerTurn
                     }
                 })
-
-
                 console.log("is in check", isInCheck)
             }
-
-
 
             selectedPiece = {}
             hasHighlighted = false
@@ -150,18 +120,13 @@ document.onmousedown = (event) => {
 
     selectedPiece = tileGameObject
     hasHighlighted = true
-
-
-
 }
 
 
 
 
-
-
-
-
+removeAllHighlights([...possibleMoves])
+startGame()
 
 
 animateLoop()
