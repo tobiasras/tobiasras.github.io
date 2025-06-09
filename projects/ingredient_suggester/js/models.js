@@ -88,6 +88,7 @@ export class GMM extends Model {
 
 
 export const availableModels = {
+    "birch_1_3": "assets/data/birch_1_3/birch_centers_1_3.json",
     "birch_1_7": "assets/data/birch_1_7/birch_centers_1_7.json",
     "gmm_10": "assets/data/gmm_10/gmm_model.json",
     "kmeans_3": "assets/data/kmeans_3/kmeans_centers.json"
