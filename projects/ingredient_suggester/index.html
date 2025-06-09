@@ -18,10 +18,12 @@
     <section class="container bg-dark  nav-spacer">
         <div class="description col-2">
             <div>
-                <h1>Ingreident Suggester</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis esse, porro sapiente in
-                    repudiandae fuga? Deleniti dolor, cumque culpa alias quaerat corporis consectetur nobis incidunt
-                    nemo fugiat eum nesciunt id.</p>
+                <h1>Ingredient Suggester</h1>
+                <p>
+                    This web app helps you discover new ingredient pairings based on what you already have. Just enter a
+                    list of ingredients, and the model suggest ingredients that commonly go well together.
+                </p>
+                <p>Dataset used: <a href="https://recipenlg.cs.put.poznan.pl/">RecipeNGL</a></p>
             </div>
         </div>
 
@@ -30,20 +32,16 @@
                 <div class="model-selector">
                     <select name="model" id="model-selector">
                         <option value="birch_1_7">Birch Model (10 clusters)</option>
-                        <option value="advanced">K-means (2 clusters)</option>
-                        <option value="experimental">Gmm (10 clusters)</option>
+                        <option value="kmeans_3">K-means (3 clusters)</option>
+                        <option value="gmm_10">Gmm (10 clusters)</option>
                     </select>
 
                 </div>
                 <div id="info" class="info">
-
-
                 </div>
-
                 <div class="suggestions">
                     <p>Suggestions:</p>
                     <div id="suggestion" class="ingredient-list"></div>
-
                 </div>
             </div>
 
@@ -66,12 +64,14 @@
                     </div>
                 </div>
 
-                <!--
+
                 <div class="commands">
-                    <button class="export-btn">Export to text</button>
-                    <button class="save-btn">Save Recipe</button>
+                    <button id="reload" class="export-btn">reload</button>
+
+                    <!--<button class="export-btn">Export to text</button>
+                    <button class="save-btn">Save Recipe</button>-->
                 </div>
-                -->
+
             </div>
 
             <div id="value-container" class="values">

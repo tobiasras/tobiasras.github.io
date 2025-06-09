@@ -5,7 +5,12 @@ import {model} from "./modelSelector.js"
 import {showSuggestions} from "./suggestions.js";
 
 
-function update () {
+
+document.getElementById("reload").addEventListener('click', ev => {
+    update()
+})
+
+export function update () {
     renderIngredients()
     const selectedIngredientsArray = Array.from(selectedIngredients);
 

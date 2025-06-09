@@ -1,4 +1,4 @@
-import {addIngreident, selectedIngredients} from "./index.js"
+import {addIngreident, selectedIngredients, update} from "./index.js"
 import {model} from "./modelSelector.js";
 import {createIngredient} from "./index.js"
 
@@ -47,11 +47,28 @@ export async function showSuggestions(transformed_data) {
         infoElement.innerHTML = labelInfo;
 
         const ingredients =  await fetchIngredients(currentModelDesc, label)
+
         renderIngredients(ingredients)
+
+        setupListernesForIngridents()
     } else {
         renderIngredients([])
     }
 }
+
+
+
+function setupListernesForIngridents() {
+    const ingredientElements = suggestions.querySelectorAll('.ingredient');
+    ingredientElements.forEach(element => {
+        element.addEventListener('click', (event) => {
+            // Handle click event here
+            selectedIngredients.add(event.currentTarget.textContent.trim())
+            update()
+        });
+    });
+}
+
 
 
 
