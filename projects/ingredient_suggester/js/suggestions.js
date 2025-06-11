@@ -38,8 +38,16 @@ export async function showSuggestions(transformed_data) {
     });
     valueContainer.innerHTML = values.join('')
 
+    console.log("sum:", sum)
+
+
     if (sum !== 0) {
+
         const label = model.predict(transformed_data)
+
+        console.log("predicted label:", label)
+
+
         const currentModelDesc = model.model_desc
 
         const labelInfo = `
@@ -75,7 +83,18 @@ function setupListernesForIngridents() {
 
 
 async function fetchIngredients(model_desc, label){
+    console.log("rinning fetch ingreidents");
+    console.log(model_desc);
+    console.log(label);
+    
+
     const res = await fetch(`assets/data/${model_desc}/clusters/${label}_unique_ingredients.csv`)
+
+    console.log("respone");
+
+    console.log(res);
+
+
     const csvText = await res.text();
     let rows = csvText.split('\r\n')
     rows.shift() // removes first desc row in csv.
