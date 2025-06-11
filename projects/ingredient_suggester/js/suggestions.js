@@ -5,7 +5,14 @@ import {createIngredient} from "./index.js"
 const suggestions = document.getElementById("suggestion")
 
 export function renderIngredients(suggestedIngredients) {
+
+    console.log("running render ingreidents");
+
     suggestions.innerHTML = ""
+
+
+    
+
     suggestedIngredients.forEach(ingredient => {
         let div = createIngredient("", ingredient)
         suggestions.appendChild(div)
@@ -58,6 +65,9 @@ export async function showSuggestions(transformed_data) {
 
         const ingredients =  await fetchIngredients(currentModelDesc, label)
 
+        console.log(ingredients);
+        
+
         renderIngredients(ingredients)
 
         setupListernesForIngridents()
@@ -99,6 +109,10 @@ async function fetchIngredients(model_desc, label){
     let rows = csvText.split('\r\n')
     rows.shift() // removes first desc row in csv.
     rows = rows.filter(row => !selectedIngredients.has(row.split(',')[0]) )
+
+    console.log(rows);
+    
+
     return rows.map(row => row.split(',')[0])
 }
 
