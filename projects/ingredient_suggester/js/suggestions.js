@@ -27,7 +27,6 @@ const infoElement = document.getElementById("info")
 const valueContainer = document.getElementById("value-container")
 
 export async function showSuggestions(transformed_data) {
-    console.log("showing suggestions")
 
     const sum = transformed_data.reduce((partialSum, a) => partialSum + a, 0)
 
@@ -45,15 +44,9 @@ export async function showSuggestions(transformed_data) {
     });
     valueContainer.innerHTML = values.join('')
 
-    console.log("sum:", sum)
-
-
     if (sum !== 0) {
 
         const label = model.predict(transformed_data)
-
-        console.log("predicted label:", label)
-
 
         const currentModelDesc = model.model_desc
 
@@ -65,7 +58,6 @@ export async function showSuggestions(transformed_data) {
 
         const ingredients =  await fetchIngredients(currentModelDesc, label)
 
-        console.log(ingredients);
         
 
         renderIngredients(ingredients)
@@ -93,29 +85,16 @@ function setupListernesForIngridents() {
 
 
 async function fetchIngredients(model_desc, label){
-    console.log("rinning fetch ingreidents");
-    console.log(model_desc);
-    console.log(label);
-    
 
     const res = await fetch(`assets/data/${model_desc}/clusters/${label}_unique_ingredients.csv`)
 
-    console.log("respone");
-
-    console.log(res);
-
-
     const csvText = await res.text();
-    
-    console.log(csvText);
+
     
     let rows = csvText.split(/\r?\n/);
 
     rows.shift() // removes first desc row in csv.
-    rows = rows.filter(row => !selectedIngredients.has(row.split(',')[0]) )
-
-    console.log(rows);
-    
+    rows = rows.filter(row => !selectedIngredients.has(row.split(',')[0]) )    
 
     return rows.map(row => row.split(',')[0])
 }
