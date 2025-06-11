@@ -20,6 +20,8 @@ const infoElement = document.getElementById("info")
 const valueContainer = document.getElementById("value-container")
 
 export async function showSuggestions(transformed_data) {
+    console.log("showing suggestions")
+
     const sum = transformed_data.reduce((partialSum, a) => partialSum + a, 0)
 
     let counter = 0
