@@ -11,8 +11,8 @@ export function renderIngredients(suggestedIngredients) {
     suggestions.innerHTML = ""
 
 
-    
 
+    
     suggestedIngredients.forEach(ingredient => {
         let div = createIngredient("", ingredient)
         suggestions.appendChild(div)
@@ -106,6 +106,11 @@ async function fetchIngredients(model_desc, label){
 
 
     const csvText = await res.text();
+    
+    console.log(csvText);
+    
+
+
     let rows = csvText.split('\r\n')
     rows.shift() // removes first desc row in csv.
     rows = rows.filter(row => !selectedIngredients.has(row.split(',')[0]) )
