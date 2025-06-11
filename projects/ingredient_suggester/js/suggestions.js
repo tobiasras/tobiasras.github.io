@@ -109,9 +109,8 @@ async function fetchIngredients(model_desc, label){
     
     console.log(csvText);
     
+    let rows = csvText.split(/\r?\n/);
 
-
-    let rows = csvText.split('\r\n')
     rows.shift() // removes first desc row in csv.
     rows = rows.filter(row => !selectedIngredients.has(row.split(',')[0]) )
 
