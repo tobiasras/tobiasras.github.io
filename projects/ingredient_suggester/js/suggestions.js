@@ -24,25 +24,11 @@ export function renderIngredients(suggestedIngredients) {
 const infoElement = document.getElementById("info")
 
 
-const valueContainer = document.getElementById("value-container")
 
 export async function showSuggestions(transformed_data) {
 
     const sum = transformed_data.reduce((partialSum, a) => partialSum + a, 0)
 
-    let counter = 0
-    const values = transformed_data.map(val => {
-        const formattedVal = (() => {
-            const num = Number(val).toFixed(3);
-            const [intPart, decPart] = num.split('.');
-            return intPart.padStart(2, '0') + '.' + decPart;
-        })();
-
-        let str = `<p><span class="mr-1">${String(counter).padStart(2, '0')}:</span>${Number(val).toFixed(3)}</p>`;
-        counter += 1;
-        return str;
-    });
-    valueContainer.innerHTML = values.join('')
 
     if (sum !== 0) {
 

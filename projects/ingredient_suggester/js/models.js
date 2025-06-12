@@ -45,8 +45,6 @@ export class Birch extends Model {
 export class KMeans extends Birch {
     constructor(data_url, model_desc) {
         super(data_url, model_desc)
-
-        console.log("model kmeans")
     }
     predict(recipe) {
         return super.predict(recipe);
@@ -72,6 +70,7 @@ export class GMM extends Model {
         });
 
         const total = probs.reduce((a, b) => a + b, 0);
+        
         const normalized = probs.map(p => p / total);
 
         console.log("Props:")
