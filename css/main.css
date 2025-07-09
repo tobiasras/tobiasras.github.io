@@ -1,8 +1,8 @@
 :root {
     --col: 10% 80% 10%;
-    
+
     --nav-height: 5em;
-    
+
     --color-white: #FFFFFF;
     --color-beige: #FFD19D;
     --color-gray: #AEB5BD;
@@ -22,9 +22,13 @@
 
     --color-bright: var(--color-darkpurble);
     --color-dark: var(--color-white);
- 
+
 }
 
+body:has(dialog[open]) {
+    overflow: hidden;
+    padding-right: 1rem;
+}
 
 p {
     line-height: 1.4em;
@@ -33,7 +37,7 @@ p {
 .intro-title {
     font-size: 8em;
     margin-bottom: 0.5em;
-    
+
 }
 
 h2 {
@@ -45,14 +49,14 @@ h2 {
 a {
     text-decoration: underline;
     color: inherit;
-    
+
     line-height: 1.4em;
 }
 
 
 li {
-    margin: 0.5rem 0;   
-    
+    margin: 0.5rem 0;
+
 
 }
 
@@ -112,7 +116,7 @@ body {
 
 .padding {
     padding-top: var(--nav-height);
-  
+
 }
 
 .intro-text p {
@@ -178,17 +182,21 @@ body {
 }
 
 .project-card {
+    all: unset;
+
+    cursor: pointer;
+
     gap: 1em;
     width: 100%;
     color: var(--color-bright);
-    
+
     text-decoration: unset;
 
     display: flex;
     flex-direction: column;
     justify-content: end;
     align-items: start;
-    margin-bottom: 0; 
+    margin-bottom: 0;
 
 }
 
@@ -198,7 +206,7 @@ body {
     gap: 0.3rem;
 
 
-    align-items: center ;
+    align-items: center;
 
     margin: 0;
     padding: 0;
@@ -219,14 +227,12 @@ body {
     font-weight: bold;
 
     border-radius: 5rem;
-    display: flex;               /* make the <p> a flex container */
-    align-items: center;         /* vertically center text */
-    justify-content: center;     /* horizontally center text (optional) */
-    
+    display: flex; /* make the <p> a flex container */
+    align-items: center; /* vertically center text */
+    justify-content: center; /* horizontally center text (optional) */
+
 
 }
-
-
 
 
 .project-card:hover {
@@ -250,9 +256,6 @@ body {
 }
 
 
-
-
-
 .more-projects {
     width: fit-content;
     padding: 1em;
@@ -271,13 +274,77 @@ body {
 }
 
 
+.dialog {
+    width: 75vw;
+    height: 75vh;
+
+    border: none;
+    border-radius: 1rem;
+
+    padding: 2rem;
+}
 
 
+.close-dialog {
+    grid-column: 5;
+    grid-row: 1;
+    justify-self: end;
+    align-self: flex-start;
+
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.7rem;
+    border: none;
+
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    gap: 8px;
+}
+
+
+.dialog-body {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);;
+    grid-template-rows: repeat(10, 1fr);
+
+    height: 100%;
+
+    gap: 1rem
+}
+
+.dialog-demo-link {
+    grid-row: 2;
+    grid-column: 4 / 6;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+
+
+.dialog-article {
+    grid-column: 1 / 4;
+    grid-row: 1 / 11;
+
+    padding-right: 3rem;
+
+    border-right: #0a5a2e solid 1px;
+}
+
+.dialog-demo-img {
+    border-radius: 0.5em;
+    object-fit: cover;
+    width: 100%;
+
+}
 
 
 /* Mobile Styles (Small Screens) */
 @media (max-width: 600px) {
-   
+
 
 }
 
@@ -289,7 +356,7 @@ body {
 
 /* Large Screens (Desktops) */
 @media (min-width: 1025px) {
-  
+
 
 }
 

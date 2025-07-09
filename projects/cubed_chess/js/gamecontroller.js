@@ -631,6 +631,21 @@ function crawlSingle(possibleTiles, pos, direction, pieceColor, canAttack, canMo
     }
 }
 
+
+
+function singleStraight(gameBoardTile, canAttack) {
+    let possibleTiles = new Set();
+    let pieceColor = gameBoardTile.piece.type[0]
+    const pos = gameBoardTile.tile.split("_").map(val => +val)
+    crawlSingle(possibleTiles, pos, [-1, 0], pieceColor, canAttack) // left
+    crawlSingle(possibleTiles, pos, [1, 0], pieceColor, canAttack)  // right
+    crawlSingle(possibleTiles, pos, [0, 1], pieceColor, canAttack)  // up
+    crawlSingle(possibleTiles, pos, [0, -1], pieceColor, canAttack) // down
+    return possibleTiles
+}
+
+
+
 function singleMove(gameBoardTile, canAttack) {
 
     let possibleTiles = new Set();
@@ -713,6 +728,9 @@ const typeMoves = {
     "single": (startTile) => {
         return singleMove(startTile, false);
     },
+    "singleStraight": (startTile) => {
+        return singleStraight(startTile, false)
+    },
     "singleAttack": (startTile) => {
         return singleMove(startTile, true);
     },
@@ -749,7 +767,7 @@ const pieceMoveInstructions = {
         typeMoves.knight
     ],
     "p": [
-        typeMoves.single,
+        typeMoves.singleStraight,
         typeMoves.diagonalAttack,
         typeMoves.doubleStart
     ],

@@ -31,6 +31,9 @@ const controls = threeJsSetup();
 
 
 export function animateLoop() {
+
+
+
     requestAnimationFrame(animateLoop);
     controls.update();
     renderer.render(scene, camera);

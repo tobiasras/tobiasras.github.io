@@ -3,12 +3,15 @@
 
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+Elbasan&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
     <link rel="stylesheet" href="css/main.css">
+
+    <script defer type="module" src="./js/dialog.js"></script>
 </head>
 
 <body>
@@ -68,80 +71,117 @@
             </div>
         </div>
 
+        <div id="project-cards" class="container project-gallery col-3">
 
-        <div class="contrainer project-gallery col-3">
-            <a class="project-card" href="projects/cubed_chess/index.html" >
-                <img class="" src="images/index/image.png">
-                <div class="tags">
-                    <p>Game Dev</p>
-                    <p>Three.js</p>
-                </div>
-                <div class="project-card-desc">
-                    <h3>Chess on a 3d surface</h3>
-                    <p>Play chess on top of a cube</p>
-                </div>
-            </a>
+            <div>
+                <button class="project-card" data-dialog-id="chess-dialog"><!--projects/cubed_chess/index.html-->
+                    <img class="" src="images/index/image.png">
+                    <div class="tags">
+                        <p>Game Dev</p>
+                        <p>Three.js</p>
+                    </div>
+                    <div class="project-card-desc">
+                        <h3>Chess on a 3d surface</h3>
+                        <p>Play chess on top of a cube</p>
+                    </div>
+                </button>
 
-            <a class="project-card" href="projects/ingredient_suggester/index.html">
-                <img class="" src="images/index/ingredient.png">
-                <div class="tags">
-                    <p>Machine Learning</p>
-                    <p>Clustering</p>
-                </div>
-                <div class="project-card-desc">
-                    <h3>Ingredient suggester</h3>
-                    <p>Suggest new ingreidents from a recipe</p>
-                </div>
-            </a>
+                <dialog class="dialog" id="chess-dialog">
+                    <div class="dialog-body">
 
+                            <button class="icon-btn close-dialog">
+                                <span class="material-icons">close</span> <!-- Change 'add' to any icon name -->
+                            </button>
+
+                        <div class="dialog-article">
+                            <h2>Chess on 3d surface</h2>
+                            <p>For this project, I created a chess game where the board consists of a cube. The game is built using the 3D JavaScript library Three.js.</p>
+
+                            <p>Some of the pieces move a little diffrent compared to a normal chess board.</p>
+
+                            <ul>
+                                <li><strong>Pawns</strong>: can move 2 forward on the first move but can also left and right except on the diaganols, the p</li>
+                            </ul>
+
+                        </div>
+
+                        <div class="dialog-demo-link">
+                            <img class="dialog-demo-img" src="images/projects/cubed_chess/screenshot.png">
+                            <a href="projects/cubed_chess/">play</a>
+                        </div>
+
+                    </div>
+                </dialog>
+            </div>
+
+
+
+            <div>
+                <button class="project-card" data-dialog-id="ingredient-dialog"> <!--projects/ingredient_suggester/index.html-->
+                    <img class=""  src="images/index/ingredient.png">
+                    <div class="tags">
+                        <p>Machine Learning</p>
+                        <p>Clustering</p>
+                    </div>
+                    <div class="project-card-desc">
+                        <h3>Ingredient suggester</h3>
+                        <p>Suggest new ingreidents from a recipe</p>
+                    </div>
+                </button>
+                <dialog id="ingredient-dialog">
+                    <h2>ingredients suggester</h2>
+                </dialog>
+            </div>
+
+            <div>
+                <button class="project-card" data-dialog-id="cdio-dialog">
+                    <img class="" src="images/index/image.png">
+                    <div class="tags">
+                        <div><p>Image Visions</p></div>
+                        <div><p>Pathing</p></div>
+                    </div>
+                    <div class="project-card-desc">
+                        <h3>LEGO Mindstorm CDIO Project</h3>
+                        <p>Building a atuonomous robot to pick up ping pong balls</p>
+                    </div>
+                </button>
+                <dialog id="cdio-dialog">
+                    <h2>CDIO project</h2>
+                </dialog>
+            </div>
+
+            <div>
+                <button class="project-card" data-dialog-id="spotify-queue">
+                    <img class="" src="images/index/image.png">
+                    <div class="tags"><p>Web Dev</p><p>React</p></div>
+
+                    <div class="project-card-desc">
+                        <h3>Spotify Queuer</h3>
+                        <p>Web app for maneging a song queue at the student bar</p>
+                    </div>
+                </button>
+                <dialog id="spotify-queue">
+                    <h2>test</h2>
+                </dialog>
+            </div>
+
+            <div>
+                <button class="project-card" data-dialog-id="component20-dialog">
+                    <img class="" src="images/index/image.png">
+                    <div class="tags"><p>Web Dev</p><p>Umbraco</p><p>C#</p></div>
+
+                    <div class="project-card-desc">
+                        <h3>Component 2.0 Website</h3>
+                        <p>Rebuild dbcg's on website in php</p>
+                    </div>
+
+                </button>
+                <dialog id="component20-dialog">
+                    <h2>hello</h2>
+                </dialog>
+            </div>
             
-            <a  class="project-card" href="">
-                <img class="" src="images/index/image.png">
-                <div class="tags">
-                    <div><p>Image Visions</p></div>
-                    <div><p>Pathing</p></div>
-                </div>
-                <div class="project-card-desc">
-                    <h3>LEGO Mindstorm CDIO Project</h3>
-                    <p>Building a atuonomous robot to pick up ping pong balls</p>
-                </div>
-            </a>
 
-            
-            <a class="project-card" href="">
-                <img class="" src="images/index/image.png">
-                <div class="tags"><p>Web Dev</p><p>React</p></div>
-
-                <div class="project-card-desc">
-                    <h3>Spotify Queuer</h3>
-                    <p>Web app for maneging a song queue at the student bar</p>
-                </div>
-            </a>
-            
-            
-
-            
-            <a class="project-card" href="">
-                <img class="" src="images/index/image.png">
-                <div class="tags"><p>Web Dev</p><p>Umbraco</p><p>C#</p></div>
-
-                <div class="project-card-desc">
-                    <h3>Component 2.0 Website</h3>
-                    <p>Rebuild dbcg's on website in php</p>
-                </div>
-            </a>
-            
-
-
-            <!--
-            <a href="" class="project-card">
-                <img class="" src="images/index/image.png">
-                <div class="project-card-desc">
-                    <h3>Project Title</h3>
-                    <p>Short description of the project.</p>
-                </div>
-            </a>
-            -->
         </div>
 
 
@@ -159,7 +199,7 @@
                     <ul>
                         <li>Software Engineering - DTU BEng</li>
                         <li>Datamatiker - KEA - AP Degree</li>
-                        <li>Entreprenørskab og Design - KEA - AP Degree</li>
+                        <li>Entrepreneurship and Design - KEA - AP Degree</li>
                     </ul>
                 </div>
 

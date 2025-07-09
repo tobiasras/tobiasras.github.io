@@ -7,16 +7,38 @@ export class UIController {
 
             this.setupMenuBtn()
             this.setupNav()
+            this.setupStartGameBtn()
+
         }
 
-        setupMenuBtn() {
+
+        setNormalStartFunc(normalStartFunc){
+            this.normalStartFunc = normalStartFunc
+        }
+        freeNormalStartFunc(freeStartFunc){
+            this.freeNormalStartFunc = freeStartFunc
+        }
+
+    setupMenuBtn() {
             Array.from(this.menuToggles).forEach(menu => {
                 menu.addEventListener('click', (e) => {
                     e.preventDefault();
                     slideMenu.classList.toggle('open');
                 })
             })
-        } 
+        }
+
+
+        setupStartGameBtn() {
+            this.normalPlayBtn = document.getElementById("start-normal-play")
+
+            this.normalPlayBtn.addEventListener("click", (event) => {
+                this.startGame()
+
+                this.normalStartFunc()
+            })
+            //this.freePlayBtn  = document.getElementById("start-free-play")
+        }
 
         startGame() {
             this.togglePlayerCards()
