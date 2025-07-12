@@ -6,8 +6,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+Elbasan&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans+Elbasan&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet">
 
     <link rel="stylesheet" href="css/main.css">
 
@@ -15,215 +15,263 @@
 </head>
 
 <body>
-    <!-- IS FIXED START -->
-    <nav class="nav-container">
-        <div class="nav">
-            <div class="nav-links">
-                <p>Homepage</p>
-                <p>Projects</p>
-                <p>Cv</p>
-            </div>
+<!-- IS FIXED START -->
+<nav class="nav-container">
+    <div class="nav">
+        <div class="nav-links">
+            <p>Homepage</p>
+            <p>Projects</p>
+            <p>Cv</p>
         </div>
-    </nav>
-    <!-- IS FIXED END -->
+    </div>
+</nav>
+<!-- IS FIXED END -->
 
-    <section class="container bg-dark frontsection nav-spacer">
-        <div class="intro col-2">
+<section class="container bg-dark frontsection nav-spacer">
+    <div class="intro col-2">
 
-            <div class="intro-text">
-                <h1 class="intro-title">Tobias Rasmussen</h1>
-                <p><b>Student: DTU Software technology.</b></p>
-                <p>
-                    type and scrambled it to make a type specimen book. It has survived not only five centuries, but
-                    also the
-                    leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                    with
-                    the
-                    release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-                    publishing
-                    software like Aldus PageMaker including versions of Lorem Ipsum
-                </p>
+        <div class="intro-text">
+            <h1 class="intro-title">Tobias Rasmussen</h1>
+            <p><b>Student: DTU Software technology.</b></p>
+            <p>
+                I'm a 27-year-old software developer currently studying Software Technology at DTU.
+                My main interests include machine learning, web development, image processing, design, and much more.
+                I enjoy working creatively and solving challenging problems.
+                This website showcases a selection of projects I've worked on.
+            </p>
 
-                <!--
-                <div class="intro-navigate">
-                    <p><b>Sections:</b></p>
-                    <a href="#">Homepage</a>
-                    <a href="#">Projects</a>
-                    <a href="#">Cv</a>
+            <p><strong>Contents</strong></p>
+            <ul>
+                <li>Projects</li>
+                <li>Working experience</li>
+            </ul>
+        </div>
+
+        <div class="xp">
+            <p>Portfolio</p>
+        </div>
+    </div>
+</section>
+
+
+<section class="container bg-dark py-3">
+    <div class="project-showcase col-2">
+        <div class="projects-desc">
+            <h2>Projects:</h2>
+        </div>
+    </div>
+
+    <div id="project-cards" class="container project-gallery col-3">
+        <div>
+            <button class="project-card" data-dialog-id="chained_encoding_experiments">
+                <!--projects/ingredient_suggester/index.html-->
+                <img class="pixel-art" src="images/index/chained_encoding.png">
+                <div class="tags">
+                    <p>Web development</p>
+                    <p>Image Compression</p>
                 </div>
-                -->
-            </div>
-
-            <div class="xp">
-                <p>Portfolio</p>
-            </div>
-        </div>
-    </section>
-
-
-
-
-
-    <section class="container bg-dark py-3">
-        <div class="project-showcase col-2">
-            <div class="projects-desc">
-                <h2>Projects:</h2>
-            </div>
-        </div>
-
-        <div id="project-cards" class="container project-gallery col-3">
-
-            <div>
-                <button class="project-card" data-dialog-id="chess-dialog"><!--projects/cubed_chess/index.html-->
-                    <img class="" src="images/index/image.png">
-                    <div class="tags">
-                        <p>Game Dev</p>
-                        <p>Three.js</p>
-                    </div>
-                    <div class="project-card-desc">
-                        <h3>Chess on a 3d surface</h3>
-                        <p>Play chess on top of a cube</p>
-                    </div>
-                </button>
-
-                <dialog class="dialog" id="chess-dialog">
-                    <div class="dialog-body">
-
-                            <button class="icon-btn close-dialog">
-                                <span class="material-icons">close</span> <!-- Change 'add' to any icon name -->
-                            </button>
-
-                        <div class="dialog-article">
-                            <h2>Chess on 3d surface</h2>
-                            <p>For this project, I created a chess game where the board consists of a cube. The game is built using the 3D JavaScript library Three.js.</p>
-
-                            <p>Some of the pieces move a little diffrent compared to a normal chess board.</p>
-
-                            <ul>
-                                <li><strong>Pawns</strong>: can move 2 forward on the first move but can also left and right except on the diaganols, the p</li>
-                            </ul>
-
-                        </div>
-
-                        <div class="dialog-demo-link">
-                            <img class="dialog-demo-img" src="images/projects/cubed_chess/screenshot.png">
-                            <a href="projects/cubed_chess/">play</a>
-                        </div>
-
-                    </div>
-                </dialog>
-            </div>
-
-            <div>
-                <button class="project-card" data-dialog-id="ingredient-dialog"> <!--projects/ingredient_suggester/index.html-->
-                    <img class=""  src="images/index/ingredient.png">
-                    <div class="tags">
-                        <p>Machine Learning</p>
-                        <p>Clustering</p>
-                    </div>
-                    <div class="project-card-desc">
-                        <h3>Ingredient suggester</h3>
-                        <p>Suggest new ingreidents from a recipe</p>
-                    </div>
-                </button>
-                <dialog id="ingredient-dialog">
-                    <h2>ingredients suggester</h2>
-                </dialog>
-            </div>
-
-            <!--
-            <div>
-                <button class="project-card" data-dialog-id="cdio-dialog">
-                    <img class="" src="images/index/image.png">
-                    <div class="tags">
-                        <div><p>Image Visions</p></div>
-                        <div><p>Pathing</p></div>
-                    </div>
-                    <div class="project-card-desc">
-                        <h3>LEGO Mindstorm CDIO Project</h3>
-                        <p>Building a atuonomous robot to pick up ping pong balls</p>
-                    </div>
-                </button>
-                <dialog id="cdio-dialog">
-                    <h2>CDIO project</h2>
-                </dialog>
-            </div>
-
-            <div>
-                <button class="project-card" data-dialog-id="spotify-queue">
-                    <img class="" src="images/index/image.png">
-                    <div class="tags"><p>Web Dev</p><p>React</p></div>
-
-                    <div class="project-card-desc">
-                        <h3>Spotify Queuer</h3>
-                        <p>Web app for maneging a song queue at the student bar</p>
-                    </div>
-                </button>
-                <dialog id="spotify-queue">
-                    <h2>test</h2>
-                </dialog>
-            </div>
-
-            <div>
-                <button class="project-card" data-dialog-id="component20-dialog">
-                    <img class="" src="images/index/image.png">
-                    <div class="tags"><p>Web Dev</p><p>Umbraco</p><p>C#</p></div>
-
-                    <div class="project-card-desc">
-                        <h3>Component 2.0 Website</h3>
-                        <p>Rebuild dbcg's on website in php</p>
-                    </div>
-
-                </button>
-                <dialog id="component20-dialog">
-                    <h2>hello</h2>
-                </dialog>
-            </div>
-
-            -->
-        </div>
-
-
-    </section>
-
-
-    <section class="container bg-bright py-3 h-10">
-        <div class="project-showcase">
-            <div class="">
-                <h2>Experince:</h2>
-            </div>
-            <div class="col-2">
-                <div>
-                    <h3>Education:</h3>
-                    <ul>
-                        <li>Software Engineering - DTU BEng</li>
-                        <li>Datamatiker - KEA - AP Degree</li>
-                        <li>Entrepreneurship and Design - KEA - AP Degree</li>
-                    </ul>
+                <div class="project-card-desc">
+                    <h3>Chained encoding</h3>
+                    <p>A visual exploration of chained encoding compression</p>
                 </div>
+            </button>
 
-                <div>
-                    <h3>Work experince:</h3>
-                    <ul>
-                        <li>Studentworker - Web Developer for DBCG (Danish Breast Cancer Group)</li>
-                        <li>Self-employed - Web Developer</li>
-                        <li>Internship - LEGO R&D Moulding</li>
-                        <li>Studentworker - Danske BoligArkitekter</li>
-                    </ul>
+
+            <dialog class="dialog" id="chained_encoding_experiments">
+                <div class="dialog-body">
+
+                    <button class="icon-btn close-dialog">
+                        <span class="material-icons">close</span> <!-- Change 'add' to any icon name -->
+                    </button>
+
+                    <div class="dialog-article">
+                        <h2>Hello worlds</h2>
+                    </div>
+
+                    <div class="dialog-demo-link-container">
+                        <img class="dialog-demo-img" src="images/projects/ingredient_suggester/screenshot.png"/>
+                        <a class="play-link" href="projects/Chained_encoding_experiments/">Open</a>
+                    </div>
 
                 </div>
-
-            </div>
+            </dialog>
         </div>
 
+        <div>
+            <button class="project-card" data-dialog-id="chess-dialog"><!--projects/cubed_chess/index.html-->
+                <img class="" src="images/index/cubed_chess.png">
+                <div class="tags">
+                    <p>Game Dev</p>
+                    <p>Three.js</p>
+                </div>
+                <div class="project-card-desc">
+                    <h3>Chess on a 3d surface</h3>
+                    <p>Play chess on top of a cube</p>
+                </div>
+            </button>
+
+            <dialog class="dialog" id="chess-dialog">
+                <div class="dialog-body">
+
+                    <button class="icon-btn close-dialog">
+                        <span class="material-icons">close</span> <!-- Change 'add' to any icon name -->
+                    </button>
+
+                    <div class="dialog-article">
+                        <h2>Chess on 3d surface</h2>
+                        <p>For this project, I created a chess game where its played on top of cube. The game is built
+                            using the 3D JavaScript library Three.js.</p>
+
+                        <p>Some of the pieces move a little diffrent compared to a normal chess board.</p>
+                        <ul>
+                            <li><strong>Pawns</strong>: can move 2 forward on the first move but can also go left and
+                                right, down and up. They can attack on the 4 diagonals
+                            </li>
+                            <li><strong>Bishop</strong>, <strong>Horse</strong>, <strong>Rook</strong>,
+                                <strong>Queen</strong>: Moves like in a normal chess game
+                            </li>
+
+                        </ul>
+
+                        <p><strong>Gamemodes:</strong> I have created 2 game modes:</p>
+
+                        <ul>
+                            <li><strong>Normal play</strong>: Like a normal chess game players take turn moving the
+                                piece till the king is checkmate
+                            </li>
+                            <li><strong>Free play</strong>: No turns, a player can move the check pieces around without
+                                taking turns.
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="dialog-demo-link-container">
+                        <img class="dialog-demo-img" src="images/projects/cubed_chess/screenshot.png">
+                        <a class="play-link" href="projects/cubed_chess/">open</a>
+                    </div>
+
+                </div>
+            </dialog>
+        </div>
+
+        <div>
+            <button class="project-card" data-dialog-id="ingredient-dialog">
+                <!--projects/ingredient_suggester/index.html-->
+                <img class="" src="images/index/ingredient.png">
+                <div class="tags">
+                    <p>Machine Learning</p>
+                    <p>Clustering</p>
+                </div>
+                <div class="project-card-desc">
+                    <h3>Ingredient suggester</h3>
+                    <p>Suggest new ingreidents from a recipe</p>
+                </div>
+            </button>
 
 
-    </section>
+            <dialog class="dialog" id="ingredient-dialog">
+                <div class="dialog-body">
 
+                    <button class="icon-btn close-dialog">
+                        <span class="material-icons">close</span> <!-- Change 'add' to any icon name -->
+                    </button>
+
+                    <div class="dialog-article">
+                        <h2>Ingredient Suggester Web App</h2>
+                        <p>
+                            This web app helps users discover new recipe ideas by suggesting ingredients based on what
+                            they already have.
+                        </p>
+
+                        <p>
+                            It was built using unsupervised machine learning techniques to cluster over half a million
+                            recipes by ingredient similarity.
+                        </p>
+
+                        <p>
+                            Behind the scenes, I experimented with models like K-Means, Gaussian Mixture Models, and
+                            BIRCH to uncover meaningful patterns in the data—grouping recipes into categories like
+                            desserts, savory dishes, and even tomato-based meals or fruity drinks.
+                        </p>
+
+                        <p><strong>How it works:</strong></p>
+                        <p>
+                            To train the ingredient suggestion model, I used the RecipeNLG dataset containing over 2
+                            million recipes.
+                            I focused on the cleaned ingredient lists (NER column), removed rare ingredients, and
+                            filtered out recipes with fewer than 4 ingredients.
+                        </p>
+                        <p>
+                            Ingredients were one-hot encoded, resulting in high-dimensional vectors (~200,000
+                            dimensions). To make clustering feasible,
+                            I applied dimensionality reduction using Singular Value Decomposition (SVD), reducing the
+                            data to 25 components.
+                        </p>
+                        <p>
+                            I experimented with three clustering models: <strong>K-Means</strong>, <strong>Gaussian
+                            Mixture Model (GMM)</strong>,
+                            and <strong>BIRCH</strong>. Each model was trained on a sample of 500,000 recipes.
+                            Clustering quality was evaluated using silhouette scores and visual inspections of
+                            ingredient/title word clouds.
+                        </p>
+                        <p>
+                            The final ingredient suggestion tool uses the best-performing BIRCH model to assign
+                            user-inputted ingredients to a cluster,
+                            and then recommends the most frequent ingredients from that cluster.
+                        </p>
+
+
+                    </div>
+
+                    <div class="dialog-demo-link-container">
+                        <img class="dialog-demo-img" src="images/projects/ingredient_suggester/screenshot.png"/>
+                        <a class="play-link" href="projects/ingredient_suggester/">Open</a>
+                    </div>
+
+                </div>
+            </dialog>
+        </div>
+    </div>
+
+
+</section>
+
+
+<section class="container bg-bright py-3 h-10">
+    <div class="project-showcase">
+        <div class="">
+            <h2>Experince:</h2>
+        </div>
+        <div class="col-2">
+            <div>
+                <h3>Education:</h3>
+                <ul>
+                    <li>Software Engineering - DTU BEng</li>
+                    <li>Datamatiker - KEA - AP Degree</li>
+                    <li>Entrepreneurship and Design - KEA - AP Degree</li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>Work experince:</h3>
+                <ul>
+                    <li>Studentworker - Web Developer for DBCG (Danish Breast Cancer Group)</li>
+                    <li>Self-employed - Web Developer</li>
+                    <li>Internship - LEGO R&D Moulding</li>
+                    <li>Studentworker - Danske BoligArkitekter</li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
 
 
 </body>
-
 
 
 </html>

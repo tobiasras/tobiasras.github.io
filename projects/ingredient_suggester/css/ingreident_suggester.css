@@ -31,6 +31,26 @@
     --color-red-200: #f09ba0;
     --color-red-100: #ffced5;
     --color-red-50:  #ffebef;
+
+    --color-beige: #FFD19D;
+
+}
+
+body {
+    background: var(--color-purble-900);
+
+
+}
+
+
+.tutorial {
+    grid-column: span 2;
+
+
+}
+
+.tutorial h2 {
+    font-size: x-large;
 }
 
 
@@ -42,7 +62,7 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-column-start: 2;
-    gap: 1rem;
+    gap: 2rem;
     align-items: start;
 }
 
@@ -50,14 +70,27 @@
 
 .pick-model {
     grid-column-start: span 2;
-    background-color: #ffe4e1;
+
+
 }
 
 .model-selector {
-    background-color: #e6e6fa;
     display: flex;
     justify-content: space-between;
 }
+
+.model-selector label {
+    align-self: center;
+    padding: 1rem;
+
+    width: auto;
+
+    color: #2f2b41;
+    background: var(--color-green-200);
+
+    border-top-left-radius: 1rem;
+}
+
 
 .model-selector select {
     width: 100%;
@@ -95,8 +128,10 @@
 
 
 .suggestions {
+    color: var(--color-purble-900);
+
     background-color: var(--color-green-300);
-    height: 20rem;
+    height: 50vh;
     padding: 1rem;
 
     overflow-y: scroll;
@@ -117,6 +152,8 @@
 }
 
 .ingredients {
+    color: var(--color-purble-900);
+
     height: 20rem;
     background-color: var(--color-green-50);
     padding: 1em;
@@ -255,7 +292,10 @@
     color: var(--color-green-50);
 }
 
-
+.bg-dark {
+    background: var(--color-purble-900);
+    color: var(--color-purble-50);
+}
 
 
 
@@ -304,6 +344,7 @@
 
 
 .input-container {
+    color: var(--color-purble-900);
     display: flex;
     gap: 0.5em;
 }
@@ -347,4 +388,6 @@
     .mr-1 {
         margin-right: 2rem;
     }
+
+
 

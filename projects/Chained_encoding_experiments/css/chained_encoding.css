@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+
+    color: white;
+}
+
+
+.auto-scale {
+    display: flex;
+    gap: 1rem;
+}
+
+.auto-scale input {
+    margin: 0;
+}
+
+
+canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+}
+
+.main {
+    padding: 3rem;
+}
+
+h2 {
+    font-size: x-large;
+}
+
+.overlay {
+    position: fixed;
+    background: rgba(0, 19, 45, 0.87);
+    border-bottom-right-radius: 1rem;
+;
+}
+
+.input-control {
+    flex-direction: column;
+    display: flex;
+    align-items: start;
+
+    height: 2rem;
+}
+
+.slider {
+    display: flex;
+    justify-content: space-between;
+
+    gap: 1rem;
+}
+
+
+
+

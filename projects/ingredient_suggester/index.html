@@ -28,6 +28,7 @@
     <div class="program">
         <div class="pick-model">
             <div class="model-selector">
+                <label for="model-selector">Model:</label>
                 <select name="model" id="model-selector">
                     <option value="birch_1_7">Birch Model (10 clusters)</option>
                     <option value="birch_1_3">Birch Model (427 clusters)</option>
@@ -69,7 +70,27 @@
                 <!--<button class="export-btn">Export to text</button>
                 <button class="save-btn">Save Recipe</button>-->
             </div>
+        </div>
 
+
+        <div class="tutorial">
+            <h2>Guide:</h2>
+            <h3>How to use this:</h3>
+            <ul>
+                <li>Type some english ingredients under "Type ingredients" and press add.</li>
+                <li>After adding ingredients, the Chosen ML model, will suggest ingreditens that pair are common with the chossen</li>
+                <li>suggestions can be added to the recipe by pressing on them</li>
+                <li>The models work best after 3 or more ingredients has been chosen!</li>
+                <li>If an ingredient is show as red, it means that the ingredient is not recognized and it wont be used to suggest new ingredients</li>
+            </ul>
+
+            <h3>Selecting models:</h3>
+            <p>For this project 4 models have been created, to select a model do the following</p>
+            <ul>
+                <li>Go to model selection</li>
+                <li>Select from the 4 models</li>
+                <li>choosing a model, will automatically load it and suggest ingredients</li>
+            </ul>
         </div>
 
 
