@@ -20,22 +20,11 @@ export function loadCanvas() {
 }
 
 
-function drawCellRandom(ctx, x, y, size) {
-    let int = Math.floor(Math.random() * 2)
-
-    if (int === 0) {
-        ctx.fillStyle = "#ff8a8a"
-        ctx.fillRect(x, y, size, size)
-    }
-}
-
-
-
 
 function drawCell(ctx, x, y, size, pixelValue) {
 
-    if (pixelValue === 0) {
-        ctx.fillStyle = "#4d431a"
+    if (pixelValue > 240) {
+        ctx.fillStyle = "#ffffff"
         ctx.fillRect(x, y, size, size)
     }
 
@@ -43,11 +32,12 @@ function drawCell(ctx, x, y, size, pixelValue) {
 }
 
 export function drawImage(settings) {
+    let ctx = settings['ctx']
+
     let gridSize = settings["gridSize"]
     let width = settings["width"]
     let height = settings["height"]
 
-    let ctx = settings['ctx']
 
     let cubeSize = width / gridSize
 
@@ -55,12 +45,8 @@ export function drawImage(settings) {
     let imageWidth = settings.image.width
     let imageHeight = settings.image.height
 
-
     let translate_x = ((width / cubeSize) - imageWidth) / 2
     let translate_y = ((height / cubeSize) - imageHeight) / 2
-
-
-    console.log(settings['autoScale'])
 
     while ((translate_x < 0 || translate_y < 0) && settings['autoScale']) {
         let int = +settings["gridSize"];
@@ -73,8 +59,6 @@ export function drawImage(settings) {
         translate_y = ((height / cubeSize) - imageHeight) / 2
     }
 
-    console.log(gridSize)
-
     let count = 0
     let x = translate_x
     let y = translate_y
@@ -84,10 +68,7 @@ export function drawImage(settings) {
             x = translate_x
             y += 1
         }
-
         const pixelValue = settings.image.data[count]
-
-
 
         drawCell(ctx, x*cubeSize, y*cubeSize, cubeSize, pixelValue)
 
@@ -97,23 +78,9 @@ export function drawImage(settings) {
 }
 
 
-export function drawRandomGrid(settings) {
-    let gridSize = settings["gridSize"]
-    let width = settings["width"]
-    let height = settings["height"]
-    let ctx = settings['ctx']
-
-    let cubeSize = width / gridSize
-
-    for (let x = 0; x < width; x += width / gridSize) {
-        for (let y = 0; y < height; y += width / gridSize) {
-            drawCellRandom(ctx, x, y, cubeSize)
-        }
-    }
-}
 
 
 export function clearCanvas(settings) {
-    settings.ctx.fillStyle = "#8282a8"
+    settings.ctx.fillStyle = "#000000"
     settings.ctx.fillRect(0, 0, settings.width, settings.height)
 }

@@ -18,7 +18,7 @@ export function setupInputListeners(settings, reload) {
     const autoScaleCheckbox = document.getElementById("auto-scale")
 
     autoScaleCheckbox.addEventListener("input", () => {
-        settings['autoScale'] = autoScaleCheckbox.checked
+        settings['autoScale'] = +autoScaleCheckbox.checked
     })
 
     setupSlider("grid-size", "grid-size-display" , "gridSize");

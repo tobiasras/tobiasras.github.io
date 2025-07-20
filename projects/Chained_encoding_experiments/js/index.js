@@ -33,7 +33,6 @@ function gameLoop() {
 function drawGrid(state) {
     //drawRandomGrid(settings)
     drawImage(settings)
-
 }
 
 // Controls to adjust speed
