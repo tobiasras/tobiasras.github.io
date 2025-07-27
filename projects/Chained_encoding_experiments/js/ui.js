@@ -2,7 +2,6 @@
 export function setupInputListeners(settings, reload) {
     function setupSlider(inputID, valueDisplayID, settingIndexString) {
 
-
         let gridSizeInput = document.getElementById(inputID)
         let valueDisplay = document.getElementById(valueDisplayID)
 
@@ -21,7 +20,7 @@ export function setupInputListeners(settings, reload) {
         settings['autoScale'] = +autoScaleCheckbox.checked
     })
 
-    setupSlider("grid-size", "grid-size-display" , "gridSize");
+    //setupSlider("grid-size", "grid-size-display" , "gridSize");
     setupSlider("speed", "speed-display" , "animationSpeed");
 
 }

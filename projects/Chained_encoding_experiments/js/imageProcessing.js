@@ -1,83 +1,73 @@
-function visitNeighbors(image, startPos) {
-    const height = image.length;
-    const width = image[0].length;
-    const x = startPos.x;
-    const y = startPos.y;
 
-    // Define the 8 directions (dx, dy)
+
+
+
+function shuffleArray(array) {
+    for (let i = array.length- 1; i > 0 ; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        const temp = array[i];
+        array[i] = array[j]
+        array[j] = temp
+    }
+}
+/*
+*/
+
+
+function crawl(component, image, visited, startPos) {
     const directions = [
-        [1, 0],   // right
-        [1, -1],  // down-right
-        [0, -1],  // down
-        [-1, -1], // down-left
-        [-1, 0],  // left
-        [-1, 1],  // up-left
-        [0, 1],   // up
-        [1, 1]    // up-right
+        [1, 0], [1, -1], [0, -1], [-1, -1],
+        [-1, 0], [-1, 1], [0, 1], [1, 1]
     ];
 
-    const neighbors = [];
+    const stack = [startPos];
 
-    for (const [dx, dy] of directions) {
-        const nx = x + dx;
-        const ny = y + dy;
+    while (stack.length > 0) {
+        //shuffleArray(directions)
 
-        // Bounds check
-        if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-            neighbors.push(image[ny][nx]);
-        } else {
-            neighbors.push(null); // or 0, or skip, depending on your use case
-        }
-    }
+        const pos = stack.pop();
+        const key = `${pos.x},${pos.y}`;
 
-    return neighbors;
-}
+        if (visited.has(key)) continue;
+        visited.add(key);
+        component.push(pos);
 
-function createChainedEncoding(grayScale, width) {
-    let result = []
+        for (const [dx, dy] of directions) {
+            const x = pos.x + dx;
+            const y = pos.y + dy;
 
-    let chains = 0
+            if (x < 0 || x >= image[0].length || y < 0 || y >= image.length) continue;
 
+            const neighborKey = `${x},${y}`;
+            if (visited.has(neighborKey)) continue;
 
-    let image = convertArrayTo2d(grayScale, width)
-
-
-    //visitNeighbors(image, [0, 0])
-
-    let visited = new Set()
-
-    for (let x = 0; x < image.length; x++) {
-        for (let y = 0; y < image[x].length; y++) {
-            if (visited.has({x,y})) continue
-
-            let pixelValue = image[x][y]
-
-            if (127 < pixelValue) {
-                // pixel is bright:
-
-                visitNeighbors(image, {x,y})
+            if (image[y][x] > 127) {
+                stack.push({ x, y });
             }
-            visited.add({x,y})
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
-export async function processImage() {
-    const imageBitMap = await loadImage()
+
+function createEncoding(image) {
+    const result = [];
+    const visited = new Set();
+
+    for (let y = 0; y < image.length; y++) {
+        for (let x = 0; x < image[0].length; x++) {
+            const key = `${x},${y}`;
+            if (image[y][x] > 127 && !visited.has(key)) {
+                const component = [];
+                crawl(component, image, visited, { x, y });
+                result.push(component);
+            }
+        }
+    }
+    return result;
+}
+
+export async function processImage(url) {
+    const imageBitMap = await loadImage(url)
     if (imageBitMap === undefined) return
 
     let width = imageBitMap.width
@@ -91,22 +81,45 @@ export async function processImage() {
     const imageData = ctx.getImageData(0, 0, width, height);
     let grayScale = toGrayScale(imageData, width, height) // width and height is the images pixel height and width!!
 
-    console.log(grayScale)
+    const image = convertArrayTo2d(grayScale, width)
 
-    let result = createChainedEncoding(grayScale, width)
+    let encoding = createEncoding(image, width)
 
-    console.log(result)
+    encoding = transformEncoding(encoding, 512)
+
+
+
 
     return {
-        "data": grayScale,
+        "animation": encoding,
+        "data": image,
         "width": width,
         "height": height
     }
 
-    //console.log(result)
+}
 
+function transformEncoding(encoding, chunks){
+    encoding = rebalance(encoding, chunks)
+    return encoding
 
 }
+
+
+function rebalance(listOfLists,  nChunks) {
+    const allItems = listOfLists.flat();
+    const avgChunkSize = Math.ceil(allItems.length / nChunks);
+    const balanced = [];
+
+    for (let i = 0; i < nChunks; i++) {
+        const chunk = allItems.slice(i * avgChunkSize, (i + 1) * avgChunkSize);
+        if (chunk.length)
+            balanced.push(chunk);
+    }
+
+    return balanced;
+}
+
 
 
 
@@ -148,8 +161,8 @@ function toGrayScale(imageData) {
 }
 
 
-async function loadImage() {
-    const res = await fetch("./assets/invert.png")
+async function loadImage(url) {
+    const res = await fetch(url)
 
     if (!res.ok) {
         console.log("failed to load image")
