@@ -23,7 +23,7 @@ function crawl(component, image, visited, startPos) {
     const stack = [startPos];
 
     while (stack.length > 0) {
-        //shuffleArray(directions)
+        shuffleArray(directions)
 
         const pos = stack.pop();
         const key = `${pos.x},${pos.y}`;

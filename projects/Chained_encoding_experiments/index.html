@@ -15,23 +15,47 @@
 <body>
     <div class="overlay">
         <div class="main">
-            <div class="settings">
-                <h2>Settings</h2>
 
-
-                <div class="slider">
-                    <div class="input-control">
-                        <label for="speed">Animation speed:</label>
-                        <input type="range" id="speed" value="1" name="volume" step="1"  min="1" max="512" />
+                <div class="menu">
+                    <div class="section">
+                        <h2>Settings</h2>
+                        <button id="startBtn">Start</button>
+                        <button id="pauseBtn">Pause</button>
+                        <button id="reloadBtn">Reload</button>
+                        <div class="slider">
+                            <div class="input-control">
+                                <label for="speed">Animation speed:</label>
+                                <input type="range" id="speed" value="1" name="volume" step="1"  min="1" max="512" />
+                            </div>
+                            <p id="speed-display">1</p>
+                        </div>
                     </div>
-                    <p id="speed-display">1</p>
+
+                    <div class="section">
+                        <h2>Color</h2>
+                        <label for="primaryColor">Primary</label>
+                        <input type="text" id="primaryColor" placeholder="#3498db" />
+
+
+                        <label for="secondaryColor">Background</label>
+                        <input type="text" id="secondaryColor" placeholder="#2ecc71" />
+                    </div>
+
+                    <div class="section">
+                        <h2>Crawlers</h2>
+                        <label>
+                            <input type="checkbox" id="randomCrawlers" />
+                            Random
+                        </label>
+                        <label>
+                            <input type="checkbox" id="straightCrawlers" />
+                            Straight
+                        </label>
+                    </div>
                 </div>
 
 
-                <div class="auto-scale">
-                    <input type="checkbox" id="auto-scale" checked name="auto-scale" value="true">
-                    <label for="auto-scale"> Auto scale</label><br>
-                </div>
+
 
 
             </div>
@@ -40,7 +64,6 @@
 
 
 
-    </div>
 
     <canvas id="canvas"></canvas>
 </body>

@@ -6,12 +6,16 @@ let settings = loadCanvas()
 
 setupInputListeners(settings, () => {})
 
-const image = await processImage("./assets/building.png")
+const image = await processImage("./assets/waterman.png")
+
+console.log("image loaded")
+
 settings.image = image
 
 let isRunning = true;
 
 const size =  Math.floor(settings.height / settings.image.height)
+//const size =  settings.height / settings.image.height
 
 
 settings.drawSettings = {
@@ -61,7 +65,8 @@ function draw_cell(settings, {x, y}) {
     const drawX = Math.floor((x * size) + translateX  ) ;
     const drawY = Math.floor((y * size  + translateY));
 
-    ctx.fillStyle = "#c2620d";
+    ctx.fillStyle = "#c4ffc2";
+
     ctx.fillRect(drawX, drawY, size, size);  // Use fillRect directly
 }
 

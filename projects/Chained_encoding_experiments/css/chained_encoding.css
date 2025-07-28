@@ -38,7 +38,6 @@ h2 {
 
 .overlay {
     position: fixed;
-    background: rgba(0, 19, 45, 0.87);
     border-bottom-right-radius: 1rem;
 ;
 }
@@ -60,4 +59,60 @@ h2 {
 
 
 
+
+
+.menu {
+    width: 300px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+}
+
+.menu h2 {
+    font-size: 1.2rem;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.menu .section {
+    margin-bottom: 1.5rem;
+}
+
+.menu label {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: #444;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.menu input[type="checkbox"] {
+    margin-right: 0.4rem;
+}
+
+.menu input[type="text"],
+.menu select,
+.menu button {
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.menu button {
+    background: #4a90e2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.menu button:hover {
+    background: #357bd8;
+}
 
