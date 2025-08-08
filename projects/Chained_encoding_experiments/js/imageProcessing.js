@@ -14,7 +14,7 @@ function shuffleArray(array) {
 */
 
 
-function crawl(component, image, visited, startPos) {
+function crawl(component, image, visited, startPos, settings) {
     const directions = [
         [1, 0], [1, -1], [0, -1], [-1, -1],
         [-1, 0], [-1, 1], [0, 1], [1, 1]
@@ -23,7 +23,10 @@ function crawl(component, image, visited, startPos) {
     const stack = [startPos];
 
     while (stack.length > 0) {
-        shuffleArray(directions)
+
+        if (settings.loadImage.crawlerRandom) {
+            shuffleArray(directions)
+        }
 
         const pos = stack.pop();
         const key = `${pos.x},${pos.y}`;
@@ -49,7 +52,8 @@ function crawl(component, image, visited, startPos) {
 }
 
 
-function createEncoding(image) {
+function createEncoding(image, settings) {
+
     const result = [];
     const visited = new Set();
 
@@ -58,7 +62,7 @@ function createEncoding(image) {
             const key = `${x},${y}`;
             if (image[y][x] > 127 && !visited.has(key)) {
                 const component = [];
-                crawl(component, image, visited, { x, y });
+                crawl(component, image, visited, { x, y }, settings);
                 result.push(component);
             }
         }
@@ -66,8 +70,10 @@ function createEncoding(image) {
     return result;
 }
 
-export async function processImage(url) {
+export async function processImage(url, settings) {
+
     const imageBitMap = await loadImage(url)
+
     if (imageBitMap === undefined) return
 
     let width = imageBitMap.width
@@ -83,15 +89,13 @@ export async function processImage(url) {
 
     const image = convertArrayTo2d(grayScale, width)
 
-    let encoding = createEncoding(image, width)
+    let encoding = createEncoding(image, settings)
 
-    encoding = transformEncoding(encoding, 512)
-
-
+    encoding = transformEncoding(encoding, settings.crawlerCount)
 
 
     return {
-        "animation": encoding,
+        "encoding": encoding,
         "data": image,
         "width": width,
         "height": height

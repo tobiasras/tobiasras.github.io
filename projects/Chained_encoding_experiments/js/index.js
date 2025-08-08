@@ -1,55 +1,129 @@
-import {loadCanvas, clearCanvas} from "./canvas.js";
-import {setupInputListeners, updateUI} from "./ui.js"
+import {loadCanvas, clearCanvas, draw} from "./canvas.js";
+import {initUI} from "./ui.js"
 import {processImage} from "./imageProcessing.js";
+
 
 let settings = loadCanvas()
 
-setupInputListeners(settings, () => {})
+const handlers = {
+    start: () => startAnimation(),
+    play: () => startAnimation(), // Same as start
+    pause: () => pauseAnimation(),
+    restart: () => restart(settings),
+    clear: () => clearAnimation(),
+    colorBackground: (background) => setBackground(background),
+    colorPrimary: (primary) => setPrimary(primary)
 
-const image = await processImage("./assets/waterman.png")
+};
 
-console.log("image loaded")
-
-settings.image = image
-
-let isRunning = true;
-
-const size =  Math.floor(settings.height / settings.image.height)
-//const size =  settings.height / settings.image.height
+initUI(settings, handlers)
 
 
-settings.drawSettings = {
-    size: size,
-    translateX: (settings.width - (settings.image.width *size )) / 2,
-    translateY: (settings.height - (settings.image.height * size)) / 2
+async function loadImage() {
+    settings.image = await processImage("./assets/building.png", settings)
+    const size = 2
+
+
+    if (!settings.drawSettings) {
+        settings.drawSettings = {}
+    }
+
+    settings.drawSettings.size = size
+    settings.drawSettings.translateX = (settings.width - (settings.image.width * size)) / 2
+    settings.drawSettings.translateY = (settings.height - (settings.image.height * size)) / 2
 }
 
+await loadImage();
 
 
 clearCanvas(settings)
-let index = 0
+
+
+let index = 0;
+let clearGameLoop = false;
+let isAnimating = false;
+let timeoutId = null;
+
 
 function gameLoop() {
-    let delay = 1000 / settings.animationSpeed;
+    if (!isAnimating) return;
 
-    if (!isRunning) return;
+    let delay = settings.animationSpeed || 100;
 
-    draw(settings, index)
+    draw(settings, index);
+    index++;
 
-    updateUI()
-    index += 1
-    setTimeout(gameLoop, delay); // Wait and then call again
+    const encodingLength = settings.image.encoding[0]?.length || 0;
+    if (index >= encodingLength) {
+        isAnimating = false;
+        return;
+    }
+
+    timeoutId = setTimeout(gameLoop, delay);
 }
 
 
-function draw(settings, index) {
-    let animation = settings.image.animation
-    animation.forEach(blob => {
-        if (blob[index]) {
-            draw_cell(settings, blob[index])
+function startAnimation() {
+    if (!isAnimating) {
+        isAnimating = true;
+        clearGameLoop = false;
+        gameLoop();
+    }
+}
+
+function pauseAnimation() {
+    isAnimating = false;
+}
+
+async function restart(settings) {
+    await loadImage()
+    if (timeoutId) clearTimeout(timeoutId);
+    index = 0;
+    clearCanvas(settings);
+    isAnimating = true;
+    gameLoop();
+}
+
+function clearAnimation() {
+    index = 0;
+    clearGameLoop = true;
+    isAnimating = false;
+    clearCanvas(settings);
+}
+
+
+function setPrimary(primary) {
+    settings.drawSettings.primaryColor = primary
+}
+function setBackground(background) {
+    settings.drawSettings.background = background
+    clearCanvas(settings);
+}
+
+
+
+/*
+const settings = {
+        "gridSize": 0,
+        "animationSpeed": 0,
+        "autoScale": true,
+        "width": window.innerWidth,
+        "height": window.innerHeight,
+        "ctx": ctx
+        "image": {
+            "encoding": encoding,
+            "data": image,
+            "width": width,
+            "height": height
+        },
+        "drawSettings": {
+            size: size,
+            translateX: (settings.width - (settings.image.width *size )) / 2,
+            translateY: (settings.height - (settings.image.height * size)) / 2
         }
-    })
-}
+
+    }
+ */
 
 
 
@@ -58,20 +132,6 @@ function draw(settings, index) {
 
 
 
-function draw_cell(settings, {x, y}) {
-    const ctx = settings.ctx;
-    const {size, translateX, translateY } = settings.drawSettings
-
-    const drawX = Math.floor((x * size) + translateX  ) ;
-    const drawY = Math.floor((y * size  + translateY));
-
-    ctx.fillStyle = "#c4ffc2";
-
-    ctx.fillRect(drawX, drawY, size, size);  // Use fillRect directly
-}
-
-// Start the animation
-gameLoop();
 
 
 

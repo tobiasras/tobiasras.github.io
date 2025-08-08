@@ -22,14 +22,14 @@ html, body {
 }
 
 
+.main {
+    padding: 3rem;
+}
+
 canvas {
     display: block;
     width: 100vw;
     height: 100vh;
-}
-
-.main {
-    padding: 3rem;
 }
 
 h2 {
@@ -116,3 +116,14 @@ h2 {
     background: #357bd8;
 }
 
+.start-btn {
+    background: #42c954 !important;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.start-btn:hover {
+    background: #289b32 !important;
+}
