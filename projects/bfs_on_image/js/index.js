@@ -21,8 +21,8 @@ initUI(settings, handlers)
 
 async function loadImage() {
     settings.image = await processImage("./assets/building.png", settings)
-    const size = 2
 
+    const size = 1
 
     if (!settings.drawSettings) {
         settings.drawSettings = {}

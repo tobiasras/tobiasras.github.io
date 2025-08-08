@@ -117,13 +117,13 @@ h2 {
 }
 
 .start-btn {
-    background: #42c954 !important;
-    color: white;
-    border: none;
+    background: none !important;
+    color: #357bd8 !important;
+    border: solid 1px !important;
     cursor: pointer;
     transition: background 0.2s ease;
 }
 
 .start-btn:hover {
-    background: #289b32 !important;
+    background: rgba(0, 0, 0, 0.1) !important;
 }
