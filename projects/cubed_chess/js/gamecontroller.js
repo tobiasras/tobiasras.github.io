@@ -11,7 +11,7 @@ const textures = {
     "bP": textureLoader.load('./assets/chess_pieces/tatiana/bP.svg'),
     "bQ": textureLoader.load('./assets/chess_pieces/tatiana/bQ.svg'),
     "bR": textureLoader.load('./assets/chess_pieces/tatiana/bR.svg'),
-    "wB": textureLoader.load('./assets/chess_pieces/tatiana/wb.svg'),
+    "wB": textureLoader.load('./assets/chess_pieces/tatiana/wB.svg'),
     "wK": textureLoader.load('./assets/chess_pieces/tatiana/wK.svg'),
     "wN": textureLoader.load('./assets/chess_pieces/tatiana/wN.svg'),
     "wP": textureLoader.load('./assets/chess_pieces/tatiana/wP.svg'),
