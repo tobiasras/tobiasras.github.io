@@ -75,26 +75,22 @@ body {
 
 
 .player-turn {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
+    position: fixed;       /* stick to viewport */
+    bottom: 10rem;          /* distance from bottom */
+    left: 0;               /* start at left */
+    width: 15rem;
 
-    width: 15em;
-
-    border-bottom: #fff solid;
+    border-bottom: 2px solid #fff;
 
     pointer-events: all;
 
-    /* Add transition and initial transform */
     transform: translateX(0);
     transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-    z-index: 10; /* ensure it’s on top if needed */
+    z-index: 10;
 }
 
 .player-turn.open {
-    transform: translateX(calc(100vw - 15em)); /* move to the right but stay on screen */
-    justify-self: end;
-    text-align: right;
-    
+    transform: translateX(calc(100vw - 15rem)); /* move to right edge */
 }
 
 .player-turn p {
@@ -121,25 +117,6 @@ body {
     padding: 0;
     margin: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -248,35 +225,6 @@ body {
     text-decoration: none;
     margin: 1rem 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

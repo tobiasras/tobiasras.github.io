@@ -7,6 +7,8 @@ import {
     setupPieces, showPossibleMoves,
 } from "./gamecontroller.js";
 
+const ui = new UIController()
+
 
 export let gameBoard = {}
 
@@ -36,14 +38,14 @@ let hasHighlighted = false
 let possibleMoves = new Set();
 let gameHasStarted = false
 
+
+
 document.onmousedown = (event) => {
     if (event.button !== 0)
         return
-
     const tileModel = retrieveTileOnClick(event)
     if (!tileModel)
         return;
-
 
     const tileString = tileModel.object.name
 
@@ -81,13 +83,15 @@ document.onmousedown = (event) => {
 
 
     // move logic
-
     if (gameHasStarted && selectedPiece.piece.type[0] !== currentPlayerTurn) {
         return;
     }
 
+
     movePiece(selectedPiece.tile, destination)
     removeAllHighlights([...possibleMoves])
+
+    ui.switchPlayerTurn()
 
 
     let kingTile = (currentPlayerTurn === 'w') ? whiteKing : blackKing
@@ -98,26 +102,27 @@ document.onmousedown = (event) => {
             type: currentPlayerTurn
         }
     })
-    console.log("is in check", isInCheck)
-
 
     selectedPiece = {}
     hasHighlighted = false
     possibleMoves = new Set();
+
+    // setup switch ui here
+
 
 
     if (currentPlayerTurn === 'w') {
         currentPlayerTurn = 'b';
     } else {
         currentPlayerTurn = 'w';
-
     }
 
 
 }
 
 
-const ui = new UIController()
+
+
 ui.setNormalStartFunc(startGame)
 
 

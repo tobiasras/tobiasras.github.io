@@ -11,23 +11,25 @@
 
     <link rel="stylesheet" href="css/main.css">
 
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="c5e2e9f3-c1b4-4a1e-b12a-9b69d3bfbb9a"></script>
+
     <script defer type="module" src="./js/dialog.js"></script>
 </head>
 
-<body>
+<body id="project-cards">
 <!-- IS FIXED START -->
 <nav class="nav-container">
     <div class="nav">
-        <div class="nav-links">
-            <p>Homepage</p>
-            <p>Projects</p>
-            <p>Cv</p>
+        <div class="nav-links bg-gloss frosted-text">
+            <a class="nav-icon" href="https://github.com/tobiasras"> <img src="images/icons/github.svg" alt="GitHub"></a>
+            <a class="nav-icon" href="https://www.linkedin.com/in/tobiasras/"> <img src="images/icons/linkedin.png" alt="LinkedIn" ></a>
+            <a class="nav-icon" href="https://www.instagram.com/tobiasras/"> <img src="images/icons/instagram.svg" alt="LinkedIn"></a>
         </div>
     </div>
 </nav>
 <!-- IS FIXED END -->
 
-<section class="container bg-dark frontsection nav-spacer">
+<section class="container bg-dark front-section nav-spacer">
     <div class="intro col-2">
 
         <div class="intro-text">
@@ -43,13 +45,70 @@
             <p><strong>Contents</strong></p>
             <ul>
                 <li>Projects</li>
+                <li>Experiments</li>
                 <li>Working experience</li>
             </ul>
         </div>
 
         <div class="xp">
-            <p>Portfolio</p>
+
         </div>
+    </div>
+</section>
+
+
+<section class="container bg-bright py-3 h-10">
+    <div class="project-showcase">
+
+        <div class="project-showcase col-2">
+            <div class="projects-desc">
+                <h2>Projects:</h2>
+                <p>Comercial projects ive done</p>
+            </div>
+        </div>
+
+        <div id="" class="container project-gallery col-3">
+
+
+
+            <div>
+                <button class="project-card" data-dialog-id="component20-dialog">
+                    <!--projects/ingredient_suggester/index.html-->
+                    <img class="" src="images/commercial/component20.jpg">
+                    <div class="tags">
+                        <p>Umbraco</p>
+                        <p>Web development</p>
+                    </div>
+                    <div class="project-card-desc">
+                        <h3>Component 2.0 website</h3>
+                        <p>Website with umbraco CMS system</p>
+                    </div>
+                </button>
+
+
+                <dialog class="dialog" id="component20-dialog">
+                    <div class="dialog-body">
+
+                        <button class="icon-btn close-dialog">
+                            <span class="material-icons">close</span> <!-- Change 'add' to any icon name -->
+                        </button>
+
+                        <div class="dialog-article">
+                            <h2>Component 2.0</h2>
+                            <p></p>
+
+                        </div>
+
+                        <div class="dialog-demo-link-container">
+                            <img class="dialog-demo-img" src="images/projects/ingredient_suggester/screenshot.png"/>
+                            <a class="play-link" href="https://component.dk/">Open</a>
+                        </div>
+
+                    </div>
+                </dialog>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -58,10 +117,11 @@
     <div class="project-showcase col-2">
         <div class="projects-desc">
             <h2>Experiments:</h2>
+            <p class="m-0">A selection of none-commercial projects, that all can be run in the browser.</p>
         </div>
     </div>
 
-    <div id="project-cards" class="container project-gallery col-3">
+    <div class="container project-gallery col-3">
         <div>
             <button class="project-card" data-dialog-id="chained_encoding_experiments">
                 <!--projects/ingredient_suggester/index.html-->
@@ -76,7 +136,6 @@
                     <p>A visual exploration of chained encoding compression</p>
                 </div>
             </button>
-
 
 
             <dialog class="dialog" id="chained_encoding_experiments">
@@ -285,6 +344,9 @@
 
         </div>
     </div>
+
+
+
 
 
 </section>
