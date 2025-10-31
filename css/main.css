@@ -26,8 +26,6 @@
 }
 
 
-
-
 body:has(dialog[open]) {
     overflow: hidden;
     padding-right: 1rem;
@@ -41,12 +39,12 @@ p {
     font-size: 8em;
     margin-bottom: 0.5em;
 
-    padding-top: calc(var(--nav-height)/2);
+    padding-top: calc(var(--nav-height) / 2);
 
 }
 
 .xp {
-    margin-left: -33%;    /* pull it 20% into col 1 */
+    margin-left: -33%; /* pull it 20% into col 1 */
     background: #4D80C9;
 }
 
@@ -347,10 +345,6 @@ body {
 }
 
 
-
-
-
-
 .dialog {
     width: 50vw;
 
@@ -359,7 +353,6 @@ body {
     border-radius: 1rem;
     padding: 2rem 2rem 8rem 2rem
 }
-
 
 
 .close-dialog {
@@ -384,7 +377,7 @@ body {
     grid-column-end: 5;
 }
 
-.dialog-title h2{
+.dialog-title h2 {
     font-size: larger;
     margin: 0;
 
@@ -413,9 +406,6 @@ body {
 }
 
 
-
-
-
 .play-link {
     font-size: x-large;
 
@@ -424,10 +414,9 @@ body {
 
 
 .dialog-article {
-    grid-column: 2 / 5 ;
+    grid-column: 2 / 5;
     height: 50vh;
 }
-
 
 
 .nav-icon img {
@@ -465,7 +454,6 @@ body {
 }
 
 
-
 .m-0 {
     margin: 0;
 }
@@ -473,6 +461,16 @@ body {
 
 /* Mobile Styles (Small Screens) */
 @media (max-width: 600px) {
+
+    .col-2 {
+
+        align-items: start;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2em;
+
+    }
+
 
     .front-section {
         min-height: 75vh;
@@ -482,6 +480,7 @@ body {
     .intro-title {
         font-size: 4em;
     }
+
     .intro-text {
         width: 100%;
     }
@@ -489,6 +488,7 @@ body {
     .col-3 {
         grid-template-columns: 1fr
     }
+
     .col-4 {
         grid-template-columns: 1fr
     }
@@ -498,11 +498,13 @@ body {
 
 
     }
+
     .dialog-body {
         grid-template-columns: 0 1fr 1fr 1fr 0;
         height: 60vh;
 
     }
+
     .dialog {
         width: 80vw;
     }
@@ -513,6 +515,7 @@ body {
     .front-section {
         min-height: 75vh;
     }
+
     .intro-title {
         font-size: 6em;
     }
@@ -520,6 +523,7 @@ body {
     .col-3 {
         grid-template-columns: 1fr 1fr
     }
+
     .col-4 {
         grid-template-columns: 1fr 1fr
     }
@@ -533,6 +537,7 @@ body {
 
 
     }
+
     .dialog-body {
         grid-template-columns: 10% 1fr 1fr 1fr 10%;
         height: 70vh;
