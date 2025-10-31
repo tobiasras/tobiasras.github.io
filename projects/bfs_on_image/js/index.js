@@ -101,30 +101,7 @@ function setBackground(background) {
 }
 
 
-
-/*
-const settings = {
-        "gridSize": 0,
-        "animationSpeed": 0,
-        "autoScale": true,
-        "width": window.innerWidth,
-        "height": window.innerHeight,
-        "ctx": ctx
-        "image": {
-            "encoding": encoding,
-            "data": image,
-            "width": width,
-            "height": height
-        },
-        "drawSettings": {
-            size: size,
-            translateX: (settings.width - (settings.image.width *size )) / 2,
-            translateY: (settings.height - (settings.image.height * size)) / 2
-        }
-
-    }
- */
-
+startAnimation()
 
 
 

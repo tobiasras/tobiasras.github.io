@@ -11,7 +11,8 @@
 
     <link rel="stylesheet" href="css/main.css">
 
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="c5e2e9f3-c1b4-4a1e-b12a-9b69d3bfbb9a"></script>
+    <script defer src="https://cloud.umami.is/script.js"
+            data-website-id="c5e2e9f3-c1b4-4a1e-b12a-9b69d3bfbb9a"></script>
 
     <script defer type="module" src="./js/dialog.js"></script>
 </head>
@@ -20,24 +21,27 @@
 <!-- IS FIXED START -->
 <nav class="nav-container">
     <div class="nav">
+        <div></div>
         <div class="nav-links bg-gloss frosted-text">
-            <a class="nav-icon" href="https://github.com/tobiasras"> <img src="images/icons/github.svg" alt="GitHub"></a>
-            <a class="nav-icon" href="https://www.linkedin.com/in/tobiasras/"> <img src="images/icons/linkedin.png" alt="LinkedIn" ></a>
-            <a class="nav-icon" href="https://www.instagram.com/tobiasras/"> <img src="images/icons/instagram.svg" alt="LinkedIn"></a>
+            <a class="nav-icon" href="https://github.com/tobiasras"> <img src="images/icons/github.svg"
+                                                                          alt="GitHub"></a>
+            <a class="nav-icon" href="https://www.linkedin.com/in/tobiasras/"> <img src="images/icons/linkedin.png"
+                                                                                    alt="LinkedIn"></a>
+            <a class="nav-icon" href="https://www.instagram.com/tobiasras/"> <img src="images/icons/instagram.svg"
+                                                                                  alt="LinkedIn"></a>
         </div>
     </div>
 </nav>
 <!-- IS FIXED END -->
 
-<section class="container bg-dark front-section nav-spacer">
-    <div class="intro col-2">
-
+<section class="container front-section">
+    <div class="intro ">
         <div class="intro-text">
             <h1 class="intro-title">Tobias Rasmussen</h1>
             <p><b>Student: DTU Software technology.</b></p>
             <p>
                 I'm a 27-year-old software developer currently studying Software Technology at DTU.
-                My main interests include machine learning, web development, image processing, design, and much more.
+                My main interests include Machine learning, web development, image processing, design, and much more.
                 I enjoy working creatively and solving challenging problems.
                 This website showcases a selection of projects I've worked on.
             </p>
@@ -50,27 +54,18 @@
             </ul>
         </div>
 
-        <div class="xp">
-
-        </div>
     </div>
 </section>
 
 
 <section class="container bg-bright py-3 h-10">
     <div class="project-showcase">
-
         <div class="project-showcase col-2">
             <div class="projects-desc">
-                <h2>Projects:</h2>
-                <p>Comercial projects ive done</p>
+                <h2>Commercial projects:</h2>
             </div>
         </div>
-
         <div id="" class="container project-gallery col-3">
-
-
-
             <div>
                 <button class="project-card" data-dialog-id="component20-dialog">
                     <!--projects/ingredient_suggester/index.html-->
@@ -87,28 +82,57 @@
 
 
                 <dialog class="dialog" id="component20-dialog">
-                    <div class="dialog-body">
+                    <div class="dialog-head">
+
+                        <div class="dialog-title">
+                            <h2>Component 2.0 | 2024 jan. - july 2024</h2>
+                        </div>
 
                         <button class="icon-btn close-dialog">
                             <span class="material-icons">close</span> <!-- Change 'add' to any icon name -->
                         </button>
+                    </div>
 
+                    <div class="dialog-body">
                         <div class="dialog-article">
-                            <h2>Component 2.0</h2>
-                            <p></p>
+                            <div>
+                                <p class="teaser-text">Flexible Umbraco CMS site with custom content features.</p>
+                            </div>
+
+                            <div class="teaser-cta">
+                                <a href="https://component.dk/">Go to project</a>
+                            </div>
+
+                            <div>
+                                <img class="teaser-image" src="images/commercial/screenshot_component20.png">
+                            </div>
+
+                            <div class="teaser-article">
+                                <p>
+                                    After completing my Datamatiker degree, I launched a web project for
+                                    Component 2.0 , designing and developing their new websites using Umbraco CMS.
+                                    My work included implementing HTML, CSS, and JavaScript to create a responsive,
+                                    user-friendly design optimized for performance.
+                                </p>
+                                <p>
+                                    The websites showcase the companies’ products and services, and the leadership teams
+                                    are now actively adding content to complete the sites.
+                                    This project demonstrates my ability to deliver full-cycle web development solutions
+                                    that balance technical quality with usability and design.
+                                </p>
+                                <ul>
+                                    <li>Full website development in Umbraco CMS</li>
+                                    <li>Responsive and performance-optimized design</li>
+                                    <li>Focus on user experience and accessibility</li>
+                                </ul>
+                            </div>
 
                         </div>
-
-                        <div class="dialog-demo-link-container">
-                            <img class="dialog-demo-img" src="images/projects/ingredient_suggester/screenshot.png"/>
-                            <a class="play-link" href="https://component.dk/">Open</a>
-                        </div>
-
                     </div>
                 </dialog>
+
             </div>
         </div>
-
     </div>
 </section>
 
@@ -117,63 +141,11 @@
     <div class="project-showcase col-2">
         <div class="projects-desc">
             <h2>Experiments:</h2>
-            <p class="m-0">A selection of none-commercial projects, that all can be run in the browser.</p>
+            <p class="m-0">Games, animations and minor projects done for fun</p>
         </div>
     </div>
 
     <div class="container project-gallery col-3">
-        <div>
-            <button class="project-card" data-dialog-id="chained_encoding_experiments">
-                <!--projects/ingredient_suggester/index.html-->
-                <img class="pixel-art" src="images/index/chained_encoding.png">
-                <div class="tags">
-                    <p>Animation</p>
-                    <p>images</p>
-                    <p>Breadth-first search</p>
-                </div>
-                <div class="project-card-desc">
-                    <h3>BFS On images</h3>
-                    <p>A visual exploration of chained encoding compression</p>
-                </div>
-            </button>
-
-
-            <dialog class="dialog" id="chained_encoding_experiments">
-                <div class="dialog-body">
-
-                    <button class="icon-btn close-dialog">
-                        <span class="material-icons">close</span> <!-- Change 'add' to any icon name -->
-                    </button>
-
-                    <div class="dialog-article">
-                        <h2>BFS on Images</h2>
-                        <p>
-                            In this demo, I explore how breadth-first search (BFS) can be applied to image data.
-                            The program processes an image, detects connected pixel regions, and animates the traversal
-                            in real-time, letting you visually follow how BFS explores the structure step-by-step.
-                        </p>
-
-
-                        <p>
-                            <strong> Uses for this kind of animation could be:</strong>
-                        </p>
-                        <ul>
-                            <li>A progress bar</li>
-                            <li>An image guessing game, where the score would be the animation frame</li>
-                        </ul>
-
-
-                    </div>
-
-                    <div class="dialog-demo-link-container">
-                        <img class="dialog-demo-img" src="images/projects/bfs_on_image/screenshot.png"/>
-                        <a class="play-link" href="projects/bfs_on_image/">Open</a>
-                    </div>
-
-                </div>
-            </dialog>
-        </div>
-
         <div>
             <button class="project-card" data-dialog-id="chess-dialog"><!--projects/cubed_chess/index.html-->
                 <img class="" src="images/index/cubed_chess.png">
@@ -188,14 +160,28 @@
             </button>
 
             <dialog class="dialog" id="chess-dialog">
-                <div class="dialog-body">
-
+                <div class="dialog-head">
+                    <div class="dialog-title">
+                        <h2>Chess on 3d surface</h2>
+                    </div>
                     <button class="icon-btn close-dialog">
                         <span class="material-icons">close</span> <!-- Change 'add' to any icon name -->
                     </button>
+                </div>
 
+                <div class="dialog-body">
                     <div class="dialog-article">
-                        <h2>Chess on 3d surface</h2>
+
+                        <div>
+                            <p class="teaser-text">Discover new ingredients with ML-driven recipe clustering.</p>
+                        </div>
+                        <div class="teaser-cta">
+                            <a href="projects/cubed_chess/">Go to project</a>
+                        </div>
+                        <div>
+                            <img class="teaser-image" src="images/projects/cubed_chess/screenshot.png">
+                        </div>
+
                         <p>For this project, I created a chess game where its played on top of cube. The game is built
                             using the 3D JavaScript library Three.js.</p>
 
@@ -223,11 +209,64 @@
 
                     </div>
 
-                    <div class="dialog-demo-link-container">
-                        <img class="dialog-demo-img" src="images/projects/cubed_chess/screenshot.png">
-                        <a class="play-link" href="projects/cubed_chess/">open</a>
+
+                </div>
+            </dialog>
+        </div>
+
+        <div>
+            <button class="project-card" data-dialog-id="chained_encoding_experiments">
+                <!--projects/ingredient_suggester/index.html-->
+                <img class="pixel-art" src="images/index/chained_encoding.png">
+                <div class="tags">
+                    <p>Animation</p>
+                    <p>images</p>
+                    <p>Depth-First Search</p>
+                </div>
+                <div class="project-card-desc">
+                    <h3>Depth-First Search On images</h3>
+                    <p>A visual exploration of chained encoding compression</p>
+                </div>
+            </button>
+
+
+            <dialog class="dialog" id="chained_encoding_experiments">
+                <div class="dialog-head">
+                    <div class="dialog-title">
+                        <h2>Ingredient Suggester Web App</h2>
                     </div>
 
+                    <button class="icon-btn close-dialog">
+                        <span class="material-icons">close</span> <!-- Change 'add' to any icon name -->
+                    </button>
+                </div>
+
+                <div class="dialog-body">
+                    <div class="dialog-article">
+
+                        <div>
+                            <p class="teaser-text">Animation created by performing Depth-First Search on images</p>
+                        </div>
+                        <div class="teaser-cta">
+                            <a href="projects/bfs_on_image/">Go to project</a>
+                        </div>
+                        <div>
+                            <img class="teaser-image" src="images/projects/bfs_on_image/screenshot.png">
+                        </div>
+
+                        <p>
+                            In this demo, I explore how Depth-First search (DFS) can be applied to image data.
+                            The program processes an image, detects connected pixel regions, and animates the traversal
+                            in real-time, letting you visually follow how BFS explores the structure step-by-step.
+                        </p>
+                        <p>
+                            <strong> Uses for this kind of animation could be:</strong>
+                        </p>
+                        <ul>
+                            <li>A progress bar</li>
+                            <li>An image guessing game, where the score would be the animation frame</li>
+                        </ul>
+                    </div>
                 </div>
             </dialog>
         </div>
@@ -248,30 +287,43 @@
 
 
             <dialog class="dialog" id="ingredient-dialog">
-                <div class="dialog-body">
+                <div class="dialog-head">
+
+                    <div class="dialog-title">
+                        <h2>Ingredient Suggester Web App</h2>
+                    </div>
 
                     <button class="icon-btn close-dialog">
                         <span class="material-icons">close</span> <!-- Change 'add' to any icon name -->
                     </button>
+                </div>
 
+                <div class="dialog-body">
                     <div class="dialog-article">
-                        <h2>Ingredient Suggester Web App</h2>
+                        <div>
+                            <p class="teaser-text">Discover new ingredients with ML-driven recipe clustering.</p>
+                        </div>
+                        <div class="teaser-cta">
+                            <a href="projects/ingredient_suggester/">Go to project</a>
+                        </div>
+                        <div>
+                            <img class="teaser-image" src="images/projects/ingredient_suggester/screenshot.png">
+                        </div>
                         <p>
-                            This web app helps users discover new recipe ideas by suggesting ingredients based on what
+                            This web app helps users discover new recipe ideas by suggesting ingredients based on
+                            what
                             they already have.
                         </p>
-
                         <p>
-                            It was built using unsupervised machine learning techniques to cluster over half a million
+                            It was built using unsupervised machine learning techniques to cluster over half a
+                            million
                             recipes by ingredient similarity.
                         </p>
-
                         <p>
                             Behind the scenes, I experimented with models like K-Means, Gaussian Mixture Models, and
                             BIRCH to uncover meaningful patterns in the data—grouping recipes into categories like
                             desserts, savory dishes, and even tomato-based meals or fruity drinks.
                         </p>
-
                         <p><strong>How it works:</strong></p>
                         <p>
                             To train the ingredient suggestion model, I used the RecipeNLG dataset containing over 2
@@ -282,7 +334,8 @@
                         <p>
                             Ingredients were one-hot encoded, resulting in high-dimensional vectors (~200,000
                             dimensions). To make clustering feasible,
-                            I applied dimensionality reduction using Singular Value Decomposition (SVD), reducing the
+                            I applied dimensionality reduction using Singular Value Decomposition (SVD), reducing
+                            the
                             data to 25 components.
                         </p>
                         <p>
@@ -296,30 +349,19 @@
                             The final ingredient suggestion tool uses the 4 best-performing models to assign
                             user-inputted ingredients to a cluster,
                             and then recommends the most frequent ingredients from that cluster.
-
                         </p>
-
-
                     </div>
-
-                    <div class="dialog-demo-link-container">
-                        <img class="dialog-demo-img" src="images/projects/ingredient_suggester/screenshot.png"/>
-                        <a class="play-link" href="projects/ingredient_suggester/">Open</a>
-                    </div>
-
                 </div>
             </dialog>
         </div>
     </div>
-
-
 </section>
 
 
 <section class="container bg-bright py-3 h-10">
     <div class="project-showcase">
         <div class="">
-            <h2>Experince:</h2>
+            <h2>Experience:</h2>
         </div>
         <div class="col-2">
             <div>
@@ -344,9 +386,6 @@
 
         </div>
     </div>
-
-
-
 
 
 </section>
