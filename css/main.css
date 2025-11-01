@@ -185,6 +185,12 @@ body {
 }
 
 
+
+.teaser-cta a {
+    font-weight: bolder;
+}
+
+
 .nav-links {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -495,14 +501,11 @@ body {
 
     .dialog-head {
         grid-template-columns: 0 1fr 1fr 1fr 0;
-
-
     }
 
     .dialog-body {
         grid-template-columns: 0 1fr 1fr 1fr 0;
         height: 60vh;
-
     }
 
     .dialog {
