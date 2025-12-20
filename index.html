@@ -146,6 +146,76 @@
     </div>
 
     <div class="container project-gallery col-3">
+
+        <div>
+            <button class="project-card" data-dialog-id="anomaly-detection-dialog"><!--projects/cubed_chess/index.html-->
+                <img class="" src="images/index/zero_shot_anomaly_detection.png">
+                <div class="tags">
+                    <p>Anomaly detection</p>
+                    <p>DinoV3</p>
+                    <p>Image vision</p>
+                </div>
+                <div class="project-card-desc">
+                    <h3>Zero Shot Anomaly Detection</h3>
+                    <p>Anomaly detection on the MVtec Dataset with Meta's Dino models</p>
+                </div>
+            </button>
+
+            <dialog class="dialog" id="anomaly-detection-dialog">
+                <div class="dialog-head">
+                    <div class="dialog-title">
+                        <h2>Chess on 3d surface</h2>
+                    </div>
+                    <button class="icon-btn close-dialog">
+                        <span class="material-icons">close</span> <!-- Change 'add' to any icon name -->
+                    </button>
+                </div>
+
+                <div class="dialog-body">
+                    <div class="dialog-article">
+                        <div>
+                            <p class="teaser-text">Discover new ingredients with ML-driven recipe clustering.</p>
+                        </div>
+                        <div class="teaser-cta">
+                            <a href="projects/cubed_chess/">Go to project</a>
+                        </div>
+                        <div>
+                            <img class="teaser-image" src="images/projects/cubed_chess/screenshot.png">
+                        </div>
+
+                        <p>For this project, I created a chess game where its played on top of cube. The game is built
+                            using the 3D JavaScript library Three.js.</p>
+
+                        <p>Some of the pieces move a little diffrent compared to a normal chess board.</p>
+                        <ul>
+                            <li><strong>Pawns</strong>: can move 2 forward on the first move but can also go left and
+                                right, down and up. They can attack on the 4 diagonals
+                            </li>
+                            <li><strong>Bishop</strong>, <strong>Horse</strong>, <strong>Rook</strong>,
+                                <strong>Queen</strong>: Moves like in a normal chess game
+                            </li>
+
+                        </ul>
+
+                        <p><strong>Gamemodes:</strong> I have created 2 game modes:</p>
+
+                        <ul>
+                            <li><strong>Normal play</strong>: Like a normal chess game players take turn moving the
+                                piece till the king is checkmate
+                            </li>
+                            <li><strong>Free play</strong>: No turns, a player can move the check pieces around without
+                                taking turns.
+                            </li>
+                        </ul>
+
+                    </div>
+
+
+                </div>
+            </dialog>
+        </div>
+
+
         <div>
             <button class="project-card" data-dialog-id="chess-dialog"><!--projects/cubed_chess/index.html-->
                 <img class="" src="images/index/cubed_chess.png">
