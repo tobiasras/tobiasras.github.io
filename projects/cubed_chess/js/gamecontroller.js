@@ -2,44 +2,168 @@ import * as THREE from 'three';
 import {gameBoard} from "./index.js";
 import {scene} from "./threeSettings.js";
 
-const textureLoader = new THREE.TextureLoader();
+const SVG_TEXTURE_SIZE = 128;
 
-const textures = {
-    "bB": textureLoader.load('./assets/chess_pieces/tatiana/bB.svg'),
-    "bK": textureLoader.load('./assets/chess_pieces/tatiana/bK.svg'),
-    "bN": textureLoader.load('./assets/chess_pieces/tatiana/bN.svg'),
-    "bP": textureLoader.load('./assets/chess_pieces/tatiana/bP.svg'),
-    "bQ": textureLoader.load('./assets/chess_pieces/tatiana/bQ.svg'),
-    "bR": textureLoader.load('./assets/chess_pieces/tatiana/bR.svg'),
-    "wB": textureLoader.load('./assets/chess_pieces/tatiana/wB.svg'),
-    "wK": textureLoader.load('./assets/chess_pieces/tatiana/wK.svg'),
-    "wN": textureLoader.load('./assets/chess_pieces/tatiana/wN.svg'),
-    "wP": textureLoader.load('./assets/chess_pieces/tatiana/wP.svg'),
-    "wQ": textureLoader.load('./assets/chess_pieces/tatiana/wQ.svg'),
-    "wR": textureLoader.load('./assets/chess_pieces/tatiana/wR.svg'),
-    "highlight_1": textureLoader.load('./assets/highlights/highlight_1.svg')
+const TEXTURE_PATHS = {
+    bB: './assets/chess_pieces/tatiana/bB.svg',
+    bK: './assets/chess_pieces/tatiana/bK.svg',
+    bN: './assets/chess_pieces/tatiana/bN.svg',
+    bP: './assets/chess_pieces/tatiana/bP.svg',
+    bQ: './assets/chess_pieces/tatiana/bQ.svg',
+    bR: './assets/chess_pieces/tatiana/bR.svg',
+    wB: './assets/chess_pieces/tatiana/wB.svg',
+    wK: './assets/chess_pieces/tatiana/wK.svg',
+    wN: './assets/chess_pieces/tatiana/wN.svg',
+    wP: './assets/chess_pieces/tatiana/wP.svg',
+    wQ: './assets/chess_pieces/tatiana/wQ.svg',
+    wR: './assets/chess_pieces/tatiana/wR.svg',
+    highlight_1: './assets/highlights/highlight_1.svg',
+};
+
+const textures = {};
+let texturesReadyPromise = null;
+
+function configureSourceTexture(texture) {
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.generateMipmaps = false;
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
 }
 
-export function displayPiece(tile, type, isFlipped) {
-    // view
-    let model = scene.getObjectByName(`$:${tile}`)
-    let texture = textures[type]
-    
-    texture.colorSpace = THREE.SRGBColorSpace
-    model.material.map = texture
-    model.material.transparent = true
-    model.material.flipY = isFlipped;
-    model.material.blending = 1
+function loadSvgTexture(url) {
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to load ${url}`);
+            }
+            return response.text();
+        })
+        .then((svgText) => new Promise((resolve, reject) => {
+            const blob = new Blob([svgText], {type: 'image/svg+xml'});
+            const objectUrl = URL.createObjectURL(blob);
+            const image = new Image();
+
+            image.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = SVG_TEXTURE_SIZE;
+                canvas.height = SVG_TEXTURE_SIZE;
+                const context = canvas.getContext('2d');
+                context.drawImage(image, 0, 0, SVG_TEXTURE_SIZE, SVG_TEXTURE_SIZE);
+                URL.revokeObjectURL(objectUrl);
+
+                const texture = new THREE.CanvasTexture(canvas);
+                configureSourceTexture(texture);
+                resolve(texture);
+            };
+
+            image.onerror = () => {
+                URL.revokeObjectURL(objectUrl);
+                reject(new Error(`Failed to decode ${url}`));
+            };
+
+            image.src = objectUrl;
+        }));
+}
+
+function loadTexture(key, url) {
+    return loadSvgTexture(url).then((texture) => {
+        textures[key] = texture;
+        return texture;
+    });
+}
+
+export function whenTexturesReady() {
+    if (!texturesReadyPromise) {
+        texturesReadyPromise = Promise.all(
+            Object.entries(TEXTURE_PATHS).map(([key, url]) => loadTexture(key, url)),
+        );
+    }
+    return texturesReadyPromise;
+}
+
+function disposeMaterialMap(material) {
+    if (material.map) {
+        material.map.dispose();
+        material.map = null;
+    }
+}
+
+const HIGHLIGHT_CAPTURE_COLOR = 0x39ff14;
+const CAPTURE_OVERLAY_NAME = 'capture-highlight';
+
+function assignTextureToMaterial(material, sourceTexture, {flipY = true, tint = 0xffffff} = {}) {
+    if (!sourceTexture?.image) {
+        return false;
+    }
+
+    disposeMaterialMap(material);
+
+    const map = sourceTexture.clone();
+    map.colorSpace = THREE.SRGBColorSpace;
+    map.generateMipmaps = false;
+    map.minFilter = THREE.LinearFilter;
+    map.magFilter = THREE.LinearFilter;
+    map.flipY = flipY;
+    map.needsUpdate = true;
+
+    material.map = map;
+    material.transparent = true;
+    material.depthWrite = false;
+    material.color.set(tint);
+    material.needsUpdate = true;
+    return true;
+}
+
+function hideCaptureOverlay(pieceMesh) {
+    const overlay = pieceMesh.getObjectByName(CAPTURE_OVERLAY_NAME);
+    if (overlay) {
+        overlay.visible = false;
+    }
+}
+
+function showCaptureOverlay(pieceMesh) {
+    let overlay = pieceMesh.getObjectByName(CAPTURE_OVERLAY_NAME);
+    if (!overlay) {
+        const material = new THREE.MeshBasicMaterial({
+            color: HIGHLIGHT_CAPTURE_COLOR,
+            transparent: true,
+            opacity: 0.55,
+            depthWrite: false,
+            side: THREE.DoubleSide,
+        });
+        overlay = new THREE.Mesh(pieceMesh.geometry, material);
+        overlay.name = CAPTURE_OVERLAY_NAME;
+        overlay.renderOrder = 1;
+        pieceMesh.add(overlay);
+    }
+
+    overlay.visible = true;
+}
+
+export function displayPiece(tile, type) {
+    const model = scene.getObjectByName(`$:${tile}`);
+    const source = textures[type];
+    if (!model || !source) {
+        return;
+    }
+
+    hideCaptureOverlay(model);
+    assignTextureToMaterial(model.material, source);
 }
 
 export function clearTile(tileName) {
-    let tile = scene.getObjectByName(`$:${tileName}`)
-    tile.material.transparent = false
-    delete tile.material.map
+    const tile = scene.getObjectByName(`$:${tileName}`);
+    if (!tile) {
+        return;
+    }
+
+    disposeMaterialMap(tile.material);
+    tile.material.transparent = false;
+    resetPieceMaterial(tile.material);
+    hideCaptureOverlay(tile);
 }
 
-export function createPiece(tile, type, isFlipped) {
-    // gameBoard
+export function createPiece(tile, type) {
     let gameBoardTile = getGameBoardTileFromTile(tile);
 
     gameBoardTile.hasPiece = true
@@ -47,7 +171,7 @@ export function createPiece(tile, type, isFlipped) {
         type: type,
         moves: 0
     }
-    displayPiece(tile, type, isFlipped);
+    displayPiece(tile, type);
 }
 
 export function movePiece(fromTile, toTile) {
@@ -61,99 +185,99 @@ export function movePiece(fromTile, toTile) {
     from.piece = {}
     from.hasPiece = false
 
-    displayPiece(toTile, to.piece.type, true);
+    displayPiece(toTile, to.piece.type);
     clearTile(fromTile)
 }
 
 export function setupPieces() {
-    createPiece('1_3_5', "wP", false)
-    createPiece('1_3_7', "wP", false)
-    createPiece('1_3_4', "wP", false)
-    createPiece('1_3_2', "wP", false)
-    createPiece('1_3_1', "wP", false)
-    createPiece('1_3_8', "wP", false)
-    createPiece('1_3_3', "wP", false)
-    createPiece('1_3_6', "wP", false)
+    createPiece('1_3_5', "wP")
+    createPiece('1_3_7', "wP")
+    createPiece('1_3_4', "wP")
+    createPiece('1_3_2', "wP")
+    createPiece('1_3_1', "wP")
+    createPiece('1_3_8', "wP")
+    createPiece('1_3_3', "wP")
+    createPiece('1_3_6', "wP")
 
-    createPiece('1_4_5', "wK", false)
-    createPiece('1_4_7', "wN", false)
-    createPiece('1_4_2', "wN", false)
-    createPiece('1_4_1', "wR", false)
-    createPiece('1_4_8', "wR", false)
-    createPiece('1_4_3', "wB", false)
-    createPiece('1_4_6', "wB", false)
+    createPiece('1_4_5', "wK")
+    createPiece('1_4_7', "wN")
+    createPiece('1_4_2', "wN")
+    createPiece('1_4_1', "wR")
+    createPiece('1_4_8', "wR")
+    createPiece('1_4_3', "wB")
+    createPiece('1_4_6', "wB")
 
-    createPiece('1_5_7', "wN", false)
-    createPiece('1_5_4', "wQ", false)
-    createPiece('1_5_2', "wN", false)
-    createPiece('1_5_1', "wR", false)
-    createPiece('1_5_8', "wR", false)
-    createPiece('1_5_3', "wB", false)
-    createPiece('1_5_6', "wB", false)
+    createPiece('1_5_7', "wN")
+    createPiece('1_5_4', "wQ")
+    createPiece('1_5_2', "wN")
+    createPiece('1_5_1', "wR")
+    createPiece('1_5_8', "wR")
+    createPiece('1_5_3', "wB")
+    createPiece('1_5_6', "wB")
 
-    createPiece('1_6_5', "wP", false)
-    createPiece('1_6_7', "wP", false)
-    createPiece('1_6_4', "wP", false)
-    createPiece('1_6_2', "wP", false)
-    createPiece('1_6_1', "wP", false)
-    createPiece('1_6_8', "wP", false)
-    createPiece('1_6_3', "wP", false)
-    createPiece('1_6_6', "wP", false)
+    createPiece('1_6_5', "wP")
+    createPiece('1_6_7', "wP")
+    createPiece('1_6_4', "wP")
+    createPiece('1_6_2', "wP")
+    createPiece('1_6_1', "wP")
+    createPiece('1_6_8', "wP")
+    createPiece('1_6_3', "wP")
+    createPiece('1_6_6', "wP")
 
-    createPiece('3_3_8', "wP", false)
-    createPiece('3_4_8', "wP", false)
-    createPiece('3_5_8', "wP", false)
-    createPiece('3_6_8', "wP", false)
+    createPiece('3_3_8', "wP")
+    createPiece('3_4_8', "wP")
+    createPiece('3_5_8', "wP")
+    createPiece('3_6_8', "wP")
 
-    createPiece('4_3_8', "wP", false)
-    createPiece('4_4_8', "wP", false)
-    createPiece('4_5_8', "wP", false)
-    createPiece('4_6_8', "wP", false)
+    createPiece('4_3_8', "wP")
+    createPiece('4_4_8', "wP")
+    createPiece('4_5_8', "wP")
+    createPiece('4_6_8', "wP")
 
-    createPiece('3_3_1', "bP", false)
-    createPiece('3_4_1', "bP", false)
-    createPiece('3_5_1', "bP", false)
-    createPiece('3_6_1', "bP", false)
+    createPiece('3_3_1', "bP")
+    createPiece('3_4_1', "bP")
+    createPiece('3_5_1', "bP")
+    createPiece('3_6_1', "bP")
 
-    createPiece('4_3_1', "bP", false)
-    createPiece('4_4_1', "bP", false)
-    createPiece('4_5_1', "bP", false)
-    createPiece('4_6_1', "bP", false)
+    createPiece('4_3_1', "bP")
+    createPiece('4_4_1', "bP")
+    createPiece('4_5_1', "bP")
+    createPiece('4_6_1', "bP")
 
-    createPiece('6_6_5', "bP", false)
-    createPiece('6_6_7', "bP", false)
-    createPiece('6_6_4', "bP", false)
-    createPiece('6_6_2', "bP", false)
-    createPiece('6_6_1', "bP", false)
-    createPiece('6_6_8', "bP", false)
-    createPiece('6_6_3', "bP", false)
-    createPiece('6_6_6', "bP", false)
+    createPiece('6_6_5', "bP")
+    createPiece('6_6_7', "bP")
+    createPiece('6_6_4', "bP")
+    createPiece('6_6_2', "bP")
+    createPiece('6_6_1', "bP")
+    createPiece('6_6_8', "bP")
+    createPiece('6_6_3', "bP")
+    createPiece('6_6_6', "bP")
 
 
-    createPiece('6_4_5', "bK", false)
-    createPiece('6_4_7', "bN", false)
-    createPiece('6_4_2', "bN", false)
-    createPiece('6_4_1', "bR", false)
-    createPiece('6_4_8', "bR", false)
-    createPiece('6_4_3', "bB", false)
-    createPiece('6_4_6', "bB", false)
+    createPiece('6_4_5', "bK")
+    createPiece('6_4_7', "bN")
+    createPiece('6_4_2', "bN")
+    createPiece('6_4_1', "bR")
+    createPiece('6_4_8', "bR")
+    createPiece('6_4_3', "bB")
+    createPiece('6_4_6', "bB")
 
-    createPiece('6_5_7', "bN", false)
-    createPiece('6_5_4', "bQ", false)
-    createPiece('6_5_2', "bN", false)
-    createPiece('6_5_1', "bR", false)
-    createPiece('6_5_8', "bR", false)
-    createPiece('6_5_3', "bB", false)
-    createPiece('6_5_6', "bB", false)
+    createPiece('6_5_7', "bN")
+    createPiece('6_5_4', "bQ")
+    createPiece('6_5_2', "bN")
+    createPiece('6_5_1', "bR")
+    createPiece('6_5_8', "bR")
+    createPiece('6_5_3', "bB")
+    createPiece('6_5_6', "bB")
 
-    createPiece('6_3_5', "bP", false)
-    createPiece('6_3_7', "bP", false)
-    createPiece('6_3_4', "bP", false)
-    createPiece('6_3_2', "bP", false)
-    createPiece('6_3_1', "bP", false)
-    createPiece('6_3_8', "bP", false)
-    createPiece('6_3_3', "bP", false)
-    createPiece('6_3_6', "bP", false)
+    createPiece('6_3_5', "bP")
+    createPiece('6_3_7', "bP")
+    createPiece('6_3_4', "bP")
+    createPiece('6_3_2', "bP")
+    createPiece('6_3_1', "bP")
+    createPiece('6_3_8', "bP")
+    createPiece('6_3_3', "bP")
+    createPiece('6_3_6', "bP")
 
     return {
         blackKing: '6_4_5',
@@ -161,9 +285,33 @@ export function setupPieces() {
     }
 }
 
+export function normalizeTileName(objectName) {
+    if (!objectName) {
+        return null
+    }
+    return objectName.startsWith('$:') ? objectName.slice(2) : objectName
+}
+
 export function getGameBoardTileFromTile(tile) {
-    const pos = tile.split("_");
-    return gameBoard[+pos[0] - 1][+pos[1]][+pos[2]]
+    const tileName = normalizeTileName(tile)
+    if (!tileName) {
+        return null
+    }
+
+    const pos = tileName.split("_").map((val) => +val)
+    return gameBoard[pos[0] - 1]?.[pos[1]]?.[pos[2]] ?? null
+}
+
+function resolveBoardTile(tileRef) {
+    if (!tileRef || tileRef === 0) {
+        return null
+    }
+
+    if (tileRef.isBoardTile) {
+        return tileRef
+    }
+
+    return getGameBoardTileFromTile(tileRef.tile)
 }
 
 function transformDirectionDiagonal(pos, nextPos, direction) {
@@ -524,15 +672,14 @@ function crawlStraight(possibleTiles, pos, direction, pieceColor, canAttack, dep
     const xPos = pos[1] + direction[0]
     const yPos = pos[2] + direction[1]
 
-    let nextGameTile = gameBoard[side][xPos][yPos]
-    if (nextGameTile === 0) {
+    let nextGameTile = gameBoard[side]?.[xPos]?.[yPos]
+    if (!nextGameTile || nextGameTile === 0) {
         return;
     }
 
-    let checkForPieces = nextGameTile
-
-    if (!nextGameTile.isBoardTile) {
-        checkForPieces = getGameBoardTileFromTile(nextGameTile.tile)
+    let checkForPieces = resolveBoardTile(nextGameTile)
+    if (!checkForPieces?.tile) {
+        return;
     }
 
     const nextPos = checkForPieces.tile.split("_").map(val => +val)
@@ -567,67 +714,76 @@ function crawlStraight(possibleTiles, pos, direction, pieceColor, canAttack, dep
 }
 
 function nextTile(position, direction) {
-    const side = position[0] - 1 // sides are from 1, 2, 3, 4, 5. -1 for
+    const side = position[0] - 1
     const xPos = position[1] + direction[0]
     const yPos = position[2] + direction[1]
-    return gameBoard[side][xPos][yPos]
+    const tile = gameBoard[side]?.[xPos]?.[yPos]
+
+    if (!tile || tile === 0) {
+        return null
+    }
+
+    return tile
 }
 
 function crawlKnight(possibleTiles, pos, direction, pieceColor, canAttack) {
-    // one tile
-    let next = nextTile(pos, direction);
-    let nextPos = next.tile.split("_").map(val => +val)
+    const stepDirection = [...direction]
+    let currentPos = [...pos]
 
-    if (!next.isBoardTile) {
-        transformDirection(direction, nextPos, pos);
-    }
+    for (let step = 0; step < 2; step++) {
+        const previousPos = currentPos
+        const nextRef = nextTile(currentPos, stepDirection)
 
-    next = nextTile(nextPos, direction)
-    nextPos = next.tile.split("_").map(val => +val)
-
-    if (!next.isBoardTile) {
-        transformDirection(direction, nextPos, pos);
-    }
-
-    direction.reverse()
-    let sides = direction.map(val => val * -1)
-
-
-    for (let i = 0; i < 2; i++) {
-        sides = sides.map(val => val * -1)
-        let next = nextTile(nextPos, sides);
-        if (!next.isBoardTile) {
-            next = getGameBoardTileFromTile(next.tile)
+        if (!nextRef) {
+            return
         }
 
-        if (next.hasPiece) {
-            if (next.piece.type[0] !== pieceColor && canAttack) {
-                // color not the same and can attack
-                possibleTiles.add(next)
+        if (!nextRef.isBoardTile) {
+            const destPos = nextRef.tile.split("_").map((val) => +val)
+            transformDirection(stepDirection, destPos, previousPos)
+        }
+
+        const resolved = resolveBoardTile(nextRef)
+        if (!resolved?.tile) {
+            return
+        }
+
+        currentPos = resolved.tile.split("_").map((val) => +val)
+    }
+
+    const perpendicularDirections = [
+        [-stepDirection[1], stepDirection[0]],
+        [stepDirection[1], -stepDirection[0]],
+    ]
+
+    for (const perpDirection of perpendicularDirections) {
+        const knightTarget = resolveBoardTile(nextTile(currentPos, perpDirection))
+        if (!knightTarget) {
+            continue
+        }
+
+        if (knightTarget.hasPiece) {
+            if (knightTarget.piece.type[0] !== pieceColor && canAttack) {
+                possibleTiles.add(knightTarget)
             }
         } else {
-            possibleTiles.add(next)
+            possibleTiles.add(knightTarget)
         }
-
     }
 }
 
 function crawlSingle(possibleTiles, pos, direction, pieceColor, canAttack, canMoveWithoutAttacking = true) {
-    let next = nextTile(pos, direction);
-
-    if (!next.isBoardTile) {
-        next = getGameBoardTileFromTile(next.tile)
+    const next = resolveBoardTile(nextTile(pos, direction));
+    if (!next) {
+        return;
     }
 
     if (next.hasPiece) {
         if (next.piece.type[0] !== pieceColor && canAttack) {
-            // color not the same and can attack
             possibleTiles.add(next)
         }
-    } else {
-        if (canMoveWithoutAttacking) {
-            possibleTiles.add(next)
-        }
+    } else if (canMoveWithoutAttacking) {
+        possibleTiles.add(next)
     }
 }
 
@@ -811,55 +967,45 @@ export function removeAllHighlights(highlightList) {
     })
 }
 
+function resetPieceMaterial(material) {
+    material.blending = THREE.NormalBlending;
+    material.opacity = 1;
+    material.color.set(0xffffff);
+}
+
 function removeHighlight(tile) {
-    const tileModel = scene.getObjectByName(`$:${tile}`)
-    const gameTile = getGameBoardTileFromTile(tile)
-    if (gameTile.hasPiece) {
-        tileModel.material.color = {
-            r: 1,
-            g: 1,
-            b: 1,
-            isColor: true
-        }
-    } else {
-        tileModel.material.map = null
-        tileModel.material.transparent = false
+    const tileModel = scene.getObjectByName(`$:${tile}`);
+    const gameTile = getGameBoardTileFromTile(tile);
+    if (!tileModel) {
+        return;
     }
+
+    if (gameTile.hasPiece) {
+        resetPieceMaterial(tileModel.material);
+        hideCaptureOverlay(tileModel);
+        return;
+    }
+
+    disposeMaterialMap(tileModel.material);
+    tileModel.material.transparent = false;
+    resetPieceMaterial(tileModel.material);
 }
 
 function displayHighlight(tile) {
-    const model = scene.getObjectByName(`$:${tile}`)
+    const model = scene.getObjectByName(`$:${tile}`);
     const gameBoardTile = getGameBoardTileFromTile(tile);
-    if (gameBoardTile.hasPiece) {
-        let pieceType = gameBoardTile.piece.type
-        if (pieceType[0] === 'b') {
-            model.material.color = {
-                r: "4",
-                g: "9",
-                b: "1.1",
-                isColor: true
-            }
-        } else {
-            model.material.color = {
-                r: "0.4",
-                g: "1",
-                b: "0.1",
-                isColor: true
-            }
-        }
-    } else {
-        let texture = textures["highlight_1"]
-        texture.colorSpace = THREE.SRGBColorSpace
-        model.material.map = texture
-        model.material.transparent = true
-        model.material.blending = 1
-        model.material.color = {
-            r: "4",
-            g: "9",
-            b: "1.1",
-            isColor: true
-        }
+    if (!model) {
+        return;
     }
+
+    if (gameBoardTile.hasPiece) {
+        resetPieceMaterial(model.material);
+        showCaptureOverlay(model);
+        return;
+    }
+
+    hideCaptureOverlay(model);
+    assignTextureToMaterial(model.material, textures.highlight_1);
 }
 
 export function checkCheckmate(pieceColor, gameBoardKingTile) {

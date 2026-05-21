@@ -3,8 +3,13 @@ import {animateLoop, scene, retrieveTileOnClick} from "./threeSettings.js";
 import {UIController} from "./ui.js";
 import {
     checkCheckmate,
-    getGameBoardTileFromTile, movePiece, removeAllHighlights,
-    setupPieces, showPossibleMoves,
+    getGameBoardTileFromTile,
+    movePiece,
+    normalizeTileName,
+    removeAllHighlights,
+    setupPieces,
+    showPossibleMoves,
+    whenTexturesReady,
 } from "./gamecontroller.js";
 
 const ui = new UIController()
@@ -16,23 +21,37 @@ let whiteKing
 let blackKing
 
 
-function startGame() {
+let freePlayMode = true;
+
+async function startGame({freePlay = false} = {}) {
+    await whenTexturesReady();
+
     while (scene.children.length > 0) {
         scene.remove(scene.children[0]);
     }
-    gameBoard = createBoard(scene)
-    let kings = setupPieces()
-    currentPlayerTurn = 'w'
-    gameHasStarted = true
+    gameBoard = createBoard(scene);
+    const kings = setupPieces();
+    freePlayMode = freePlay;
+    currentPlayerTurn = 'w';
+    gameHasStarted = true;
 
-    whiteKing = kings.whiteKing
-    blackKing = kings.blackKing
+    whiteKing = kings.whiteKing;
+    blackKing = kings.blackKing;
+
+    hasHighlighted = false;
+    selectedPiece = undefined;
+    possibleMoves = new Set();
+
+    ui.refreshSideNav(gameBoard);
 }
 
-gameBoard = createBoard(scene)
+whenTexturesReady().then(() => {
+    ui.prepareTurnUI(false);
+    startGame({freePlay: true});
+});
 
 
-let currentPlayerTurn;
+let currentPlayerTurn = 'w';
 let selectedPiece
 let hasHighlighted = false
 let possibleMoves = new Set();
@@ -43,18 +62,34 @@ let gameHasStarted = false
 document.onmousedown = (event) => {
     if (event.button !== 0)
         return
+
+    if (event.target.closest('.nav, .menu, .slide-menu')) {
+        return
+    }
     const tileModel = retrieveTileOnClick(event)
     if (!tileModel)
         return;
 
-    const tileString = tileModel.object.name
+    const tileName = normalizeTileName(tileModel.object.name)
+    if (!tileName) {
+        return
+    }
 
     if (!hasHighlighted) {
-        const tileGameObject = getGameBoardTileFromTile(tileModel.object.name)
+        const tileGameObject = getGameBoardTileFromTile(tileName)
+        if (!tileGameObject?.hasPiece) {
+            return
+        }
+
+        if (gameHasStarted && !freePlayMode && tileGameObject.piece.type[0] !== currentPlayerTurn) {
+            return
+        }
+
         possibleMoves = showPossibleMoves(tileGameObject.tile)
 
-        if (!possibleMoves)
+        if (!possibleMoves || possibleMoves.size === 0) {
             return
+        }
         selectedPiece = tileGameObject
         hasHighlighted = true
 
@@ -66,7 +101,7 @@ document.onmousedown = (event) => {
     let destination
 
     possibleMoves.forEach((highlightedTiles) => {
-        if (highlightedTiles.tile === tileString) {
+        if (highlightedTiles.tile === tileName) {
             destination = highlightedTiles.tile
             pieceToMove = true;
         }
@@ -82,48 +117,45 @@ document.onmousedown = (event) => {
     }
 
 
-    // move logic
-    if (gameHasStarted && selectedPiece.piece.type[0] !== currentPlayerTurn) {
+    if (gameHasStarted && !freePlayMode && selectedPiece.piece.type[0] !== currentPlayerTurn) {
         return;
     }
-
 
     movePiece(selectedPiece.tile, destination)
     removeAllHighlights([...possibleMoves])
 
-    ui.switchPlayerTurn()
+    if (!freePlayMode) {
+        ui.switchPlayerTurn()
 
+        const kingTile = currentPlayerTurn === 'w' ? whiteKing : blackKing
+        const kingPieceType = currentPlayerTurn === 'w' ? 'wK' : 'bK'
 
-    let kingTile = (currentPlayerTurn === 'w') ? whiteKing : blackKing
+        checkCheckmate(currentPlayerTurn === 'w' ? 'b' : 'w', {
+            tile: kingTile,
+            piece: {
+                type: kingPieceType
+            }
+        })
 
-    let isInCheck = checkCheckmate(currentPlayerTurn === 'w' ? 'b' : 'w', {
-        tile: kingTile,
-        piece: {
-            type: currentPlayerTurn
+        if (currentPlayerTurn === 'w') {
+            currentPlayerTurn = 'b';
+        } else {
+            currentPlayerTurn = 'w';
         }
-    })
+    }
 
     selectedPiece = {}
     hasHighlighted = false
     possibleMoves = new Set();
 
-    // setup switch ui here
-
-
-
-    if (currentPlayerTurn === 'w') {
-        currentPlayerTurn = 'b';
-    } else {
-        currentPlayerTurn = 'w';
-    }
-
-
+    ui.refreshSideNav(gameBoard);
 }
 
 
 
 
-ui.setNormalStartFunc(startGame)
+ui.setNormalStartFunc(() => startGame({freePlay: false}))
+ui.setFreePlayStartFunc(() => startGame({freePlay: true}))
 
 
 //removeAllHighlights([...possibleMoves])

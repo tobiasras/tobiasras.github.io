@@ -28,6 +28,10 @@ html, body {
 }
 
 canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
     display: block;
     width: 100vw;
     height: 100vh;
@@ -39,8 +43,16 @@ h2 {
 
 .overlay {
     position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    pointer-events: none;
     border-bottom-right-radius: 1rem;
-;
+}
+
+.overlay .nav-container,
+.overlay .main {
+    pointer-events: auto;
 }
 
 .input-control {
