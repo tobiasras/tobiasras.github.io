@@ -11,7 +11,6 @@ const renderer = new THREE.WebGLRenderer();
 function threeJsSetup() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.backgr
     document.body.appendChild(renderer.domElement);
 
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -28,6 +27,26 @@ function threeJsSetup() {
 
 
 const controls = threeJsSetup();
+
+const FACE_CAMERA_VIEWS = {
+    1: {position: [0, 0, 5], target: [0, 0, 0]},
+    2: {position: [0, 5, 0], target: [0, 0, 0]},
+    3: {position: [5, 0, 0], target: [0, 0, 0]},
+    4: {position: [-5, 0, 0], target: [0, 0, 0]},
+    5: {position: [0, -5, 0], target: [0, 0, 0]},
+    6: {position: [0, 0, -5], target: [0, 0, 0]},
+};
+
+export function focusCameraOnSide(sideNumber) {
+    const view = FACE_CAMERA_VIEWS[sideNumber];
+    if (!view) {
+        return;
+    }
+
+    camera.position.set(view.position[0], view.position[1], view.position[2]);
+    controls.target.set(view.target[0], view.target[1], view.target[2]);
+    controls.update();
+}
 
 
 export function animateLoop() {
@@ -48,7 +67,14 @@ export function retrieveTileOnClick(event) {
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
     rayCaster.setFromCamera(mouse, camera)
-    const intersects = rayCaster.intersectObject(scene)
+    const intersects = rayCaster.intersectObjects(scene.children, true)
 
-    return intersects[0]
+    for (const hit of intersects) {
+        const name = hit.object.name
+        if (name && (name.startsWith('$:') || /^\d+_\d+_\d+$/.test(name))) {
+            return hit
+        }
+    }
+
+    return null
 }

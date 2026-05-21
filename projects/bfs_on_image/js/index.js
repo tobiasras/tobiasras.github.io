@@ -18,7 +18,6 @@ const handlers = {
 
 initUI(settings, handlers)
 
-
 async function loadImage() {
     settings.image = await processImage("./assets/building.png", settings)
 

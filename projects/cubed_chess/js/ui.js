@@ -1,87 +1,129 @@
+import {drawSidePreview} from './navBoard.js';
+import {focusCameraOnSide} from './threeSettings.js';
+
 export class UIController {
-        constructor() {
-            this.slideMenus = document.getElementById('slideMenu')
-            this.menuToggles = document.getElementsByClassName("menu-toggle")
-            this.playerTurn = document.getElementById("player-turn")
-            this.sides = document.querySelectorAll('.side-canvas')
+    constructor() {
+        this.slideMenu = document.getElementById('slideMenu')
+        this.menuToggles = document.getElementsByClassName("menu-toggle")
+        this.playerTurn = document.getElementById("player-turn")
+        this.sideButtons = document.querySelectorAll('.side')
+        this.canvasesBySide = new Map()
 
-            this.setupMenuBtn()
-            this.setupNav()
-            this.setupStartGameBtn()
+        this.setupMenuBtn()
+        this.setupNav()
+        this.setupStartGameBtn()
+    }
 
-        }
+    setNormalStartFunc(normalStartFunc) {
+        this.normalStartFunc = normalStartFunc
+    }
 
-
-        setNormalStartFunc(normalStartFunc){
-            this.normalStartFunc = normalStartFunc
-        }
-        freeNormalStartFunc(freeStartFunc){
-            this.freeNormalStartFunc = freeStartFunc
-        }
+    setFreePlayStartFunc(freeStartFunc) {
+        this.freeStartFunc = freeStartFunc
+    }
 
     setupMenuBtn() {
-            Array.from(this.menuToggles).forEach(menu => {
-                menu.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    slideMenu.classList.toggle('open');
-                })
+        Array.from(this.menuToggles).forEach(menu => {
+            menu.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.slideMenu?.classList.toggle('open');
             })
-        }
-
-
-        setupStartGameBtn() {
-            this.normalPlayBtn = document.getElementById("start-normal-play")
-
-            this.normalPlayBtn.addEventListener("click", (event) => {
-                this.startGame()
-
-                this.normalStartFunc()
-            })
-            //this.freePlayBtn  = document.getElementById("start-free-play")
-        }
-
-        startGame() {
-            this.togglePlayerCards()
-        }
-
-        togglePlayerCards() {
-            this.playerTurn.hidden = !this.playerTurn.hidden
-        }
-
-        switchPlayerTurn() {
-            const whitePiecesText = "White's turn"
-            const blackPiecesText = "Black's turn"
-            let currentText = this.playerTurn.innerText
-            if (currentText === whitePiecesText) {
-                this.playerTurn.innerText = blackPiecesText
-            } else {
-                this.playerTurn.innerText = whitePiecesText
-            }
-            this.playerTurn.classList.toggle('open');
-        }
-
-        
-        /** setup the 6 canvases that is used to move the camera to diffrent faces of the board **/
-        setupNav() {
-            const sides = document.querySelectorAll('.side-canvas');
-            const sidesArray = Array.from(sides);
-
-            sidesArray.forEach(side => {
-                // Get the computed dimensions of the canvas from CSS
-                const rect = side.getBoundingClientRect();
-                side.width = rect.width; // Set the canvas width
-                side.height = rect.height; // Set the canvas height
-
-                const ctx = side.getContext("2d");
-
-                const dim = [side.width, side.height];
-
-                const gridSize = 8;
-                const cellSize = dim[0] / gridSize;
-            });
-        }
-
+        })
     }
-    
 
+    setupStartGameBtn() {
+        this.normalPlayBtn = document.getElementById("start-normal-play")
+        this.freePlayBtn = document.getElementById("free-play")
 
+        this.normalPlayBtn?.addEventListener("click", () => {
+            this.prepareTurnUI(true)
+            this.normalStartFunc?.()
+        })
+
+        this.freePlayBtn?.addEventListener("click", () => {
+            this.prepareTurnUI(false)
+            this.freeStartFunc?.()
+        })
+    }
+
+    prepareTurnUI(showTurnIndicator) {
+        this.playerTurn.hidden = !showTurnIndicator
+        if (showTurnIndicator) {
+            const turnLabel = this.playerTurn.querySelector('p')
+            if (turnLabel) {
+                turnLabel.innerText = "White's turn"
+            }
+            this.playerTurn.classList.remove('open')
+        }
+    }
+
+    switchPlayerTurn() {
+        const whitePiecesText = "White's turn"
+        const blackPiecesText = "Black's turn"
+        const turnLabel = this.playerTurn.querySelector('p')
+        if (!turnLabel) {
+            return
+        }
+        if (turnLabel.innerText === whitePiecesText) {
+            turnLabel.innerText = blackPiecesText
+        } else {
+            turnLabel.innerText = whitePiecesText
+        }
+        this.playerTurn.classList.toggle('open');
+    }
+
+    getSideNumberFromButton(button) {
+        const match = [...button.classList].find((name) => name.startsWith('side-') && name !== 'side')
+        if (!match) {
+            return null
+        }
+
+        return Number.parseInt(match.replace('side-', ''), 10)
+    }
+
+    resizeSideCanvas(canvas) {
+        const rect = canvas.getBoundingClientRect();
+        const size = Math.max(1, Math.floor(Math.min(rect.width, rect.height)));
+        canvas.width = size;
+        canvas.height = size;
+    }
+
+    setupNav() {
+        this.canvasesBySide.clear();
+
+        this.sideButtons.forEach((button) => {
+            const sideNumber = this.getSideNumberFromButton(button);
+            const canvas = button.querySelector('.side-canvas');
+
+            if (!sideNumber || !canvas) {
+                return;
+            }
+
+            this.canvasesBySide.set(sideNumber, canvas);
+            this.resizeSideCanvas(canvas);
+
+            button.addEventListener('click', (event) => {
+                event.stopPropagation();
+                focusCameraOnSide(sideNumber);
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            for (const [sideNumber, canvas] of this.canvasesBySide.entries()) {
+                this.resizeSideCanvas(canvas);
+                if (this.latestGameBoard) {
+                    drawSidePreview(canvas, sideNumber, this.latestGameBoard);
+                }
+            }
+        });
+    }
+
+    refreshSideNav(gameBoard) {
+        this.latestGameBoard = gameBoard;
+
+        for (const [sideNumber, canvas] of this.canvasesBySide.entries()) {
+            this.resizeSideCanvas(canvas);
+            drawSidePreview(canvas, sideNumber, gameBoard);
+        }
+    }
+}
