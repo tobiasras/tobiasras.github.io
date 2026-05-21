@@ -36,31 +36,7 @@
         array[4][4] = 1
         array[6][5] = 1
 
-        array[12][16] = 1
-        array[12][15] = 1
-        array[11][16] = 1
-        array[11][15] = 1
 
-        array[32][12] = 1
-        array[33][11] = 1
-        array[33][13] = 1
-        array[34][13] = 1
-        array[34][12] = 1
-
-        array[24][32] = 1
-        array[24][33] = 1
-        array[24][35] = 1
-        array[24][36] = 1
-        array[25][33] = 1
-        array[25][35] = 1
-        array[26][33] = 1
-        array[26][35] = 1
-
-        array[27][32] = 1
-        array[27][33] = 1
-        array[27][35] = 1
-        array[27][36] = 1
-        array[27][33] = 1
     }
 
     function createGrid() {
