@@ -11,14 +11,12 @@ function preload() {
 }
 
 function canvasSize() {
-    const vv = window.visualViewport;
-    if (vv) {
-        return [Math.round(vv.width), Math.round(vv.height)];
-    }
     return [windowWidth, windowHeight];
 }
 
 function setup() {
+    pixelDensity(1);
+
     const [w, h] = canvasSize();
     const canvas = createCanvas(w, h, WEBGL);
     canvas.parent('sketch-container');
@@ -91,19 +89,7 @@ function draw() {
 
     frameCounter++;
 
-    if (saveMode) {
-        // Save frame with ffmpeg-compatible naming (frame-0000.png, frame-0001.png, etc.)
-        saveCanvas('frame-' + nf(frameCounter, 4), 'png');
 
-        if (frameCounter < totalFrames) {
-            setTimeout(function () {
-                redraw();
-            }, 100); // 100ms delay between frames to prevent skipping
-        } else {
-            console.log('Frame export complete! ' + totalFrames + ' frames saved');
-            console.log('Use ffmpeg to create video (see README.md)');
-        }
-    }
 
 }
 
