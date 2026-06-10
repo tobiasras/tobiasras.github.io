@@ -54,12 +54,45 @@
             pointer-events: none;
             text-shadow: 0 1px 12px rgba(0, 0, 0, 0.85);
         }
+
+        .nav-link {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+
+            z-index: 10;
+
+            font-family: "consolas", sans-serif;
+            font-size: 1rem;
+            color: #fff;
+            text-decoration: underline;
+
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.2);
+
+            transition: background 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .prev {
+            left: 1.5rem;
+        }
+        .next {
+            right: 1.5rem;
+        }
     </style>
 </head>
 <body>
     <div class="sketch-stage">
         <main id="sketch-container"></main>
         <h1 class="sketch-title">Shader 002</h1>
+                <nav class="sketch-nav">
+            <a href="/projects/shader_001/index.html" class="nav-link prev"><- shader 001</a>
+            <a href="/projects/shader_003/index.html" class="nav-link next"></a>
+        </nav> 
     </div>
     <script src="sketch.js"></script>
 </body>

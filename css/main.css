@@ -244,6 +244,7 @@ body {
 }
 
 .intro-card {
+    grid-column: 1;
     position: relative;
     color: var(--color-dark);
 }
@@ -464,6 +465,7 @@ body {
 
 
 
+
     .project-gallery {
         grid-template-columns: 1fr;
     }
@@ -479,6 +481,9 @@ body {
         grid-template-columns: repeat(3, 1fr);
     }
 
+    .intro-card {
+        grid-column: span 2;
+    }
 }
 
 @media (min-width: 1025px) {
