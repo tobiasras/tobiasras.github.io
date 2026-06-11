@@ -93,21 +93,32 @@ function init() {
     const orb_count = env.params.repel_orb_count;
     env.orbs = [];
 
-    const radius = 0.68;
+    const radius = 0.3;
+
     for (let i = 0; i < orb_count; i++) {
 
         const theta = Math.random() * Math.PI * 2;
         const r = radius * Math.sqrt(Math.random());
 
+        const x = r * Math.cos(theta);
+        const y = r * Math.sin(theta);
+
+        const dist = Math.sqrt(x*x + y*y);
+
+        // Avoid division by zero near the center
+        const tx = dist > 0 ? -y / dist : 0;
+        const ty = dist > 0 ?  x / dist : 0;
+
+        const speed = 1.5;
 
         env.orbs.push({
-            x: r * Math.cos(theta),
-            y: r * Math.sin(theta),
-            mass: Math.random()*2+1,
+            x,
+            y,
+            mass: Math.random() + 1,
+            velocity_x: tx * speed,
+            velocity_y: ty * speed,
             accelerations_x: 0,
             accelerations_y: 0,
-            velocity_x: 0,
-            velocity_y: 0,
             force_x: 0,
             force_y: 0,
         });
@@ -143,12 +154,6 @@ function compute_force() {
             env.orbs[i].force_y += Fy;
             env.orbs[j].force_x -= Fx;
             env.orbs[j].force_y -= Fy;
-
-            env.orbs[i].force_x += -env.center_strenth * env.orbs[i].x;
-            env.orbs[i].force_y += -env.center_strenth * env.orbs[i].y;
-            env.orbs[j].force_x += -env.center_strenth * env.orbs[j].x;
-            env.orbs[j].force_y += -env.center_strenth * env.orbs[j].y;
-            
         }
     }
 }
@@ -166,13 +171,3 @@ function update_orbs(dt) {
     }
 }
 
-function initSketchUI() {
-    initControls(SLIDER_CONFIG);
-    initSidebar();
-}
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSketchUI);
-} else {
-    initSketchUI();
-}
