@@ -134,6 +134,11 @@ body {
     grid-template-columns: 1fr 1fr;
 }
 
+
+.size-8 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
 .project-gallery {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -314,13 +319,6 @@ body {
 }
 
 
-
-
-
-
-
-
-
 .intro-bio {
     margin: 0.28em 0 0;
     font-size: min(4.25cqi, 5.5cqh);
@@ -340,7 +338,6 @@ body {
     display: block;
     text-decoration: none;
     color: var(--color-white);
-    background: var(--color-darkpurble);
 }
 
 .project-card--mini .project-card-overlay {
@@ -451,6 +448,17 @@ body {
     outline-offset: 3px;
 }
 
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+
+.pt {
+    padding-top: 5rem;
+}
+
 @supports not (container-type: size) {
     .ascii-card {
         font-size: clamp(0.5rem, 4.5vw, 1.75rem);
@@ -462,9 +470,6 @@ body {
         grid-template-columns: 1fr;
         gap: 2em;
     }
-
-
-
 
     .project-gallery {
         grid-template-columns: 1fr;
@@ -487,8 +492,15 @@ body {
 }
 
 @media (min-width: 1025px) {
+
+
     .project-gallery {
         grid-template-columns: repeat(4, 1fr);
     }
+
+    .size-8 {
+        grid-template-columns: repeat(8, 1fr);
+    }
+
 
 }

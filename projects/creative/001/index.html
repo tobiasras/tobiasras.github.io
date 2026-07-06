@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shader 002</title>
+    <title>Creative Code 001</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Elbasan&display=swap" rel="stylesheet">
@@ -33,10 +33,16 @@
         #sketch-container {
             position: absolute;
             inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
         #sketch-container canvas {
             display: block;
+            max-width: 100%;
+            max-height: 100%;
         }
 
         .sketch-title {
@@ -83,12 +89,13 @@
         .next {
             right: 1.5rem;
         }
+
     </style>
 </head>
 <body>
     <div class="sketch-stage">
         <main id="sketch-container"></main>
-        <h1 class="sketch-title">Shader 002</h1>
+        <h1 class="sketch-title">Creative Code 001</h1>
 
     </div>
     <script src="sketch.js"></script>
