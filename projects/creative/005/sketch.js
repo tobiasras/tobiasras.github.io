@@ -91,17 +91,17 @@ const positions = geometry.attributes.position.array;
 
 
 const env = {
-    gravity: 0.05,
+    gravity: 1.55,
     center_strenth: 0.0001,
     orbs: new Array(row * row * row).fill().map((_, i) => {
         return {
             x: positions[i * 3],
             y: positions[i * 3 + 1],
             z: positions[i * 3 + 2],
-            mass: Math.random() * 0.5 + 0.5,
-            velocity_x: Math.random() * 0.5 ,
-            velocity_y: Math.random() * 0.5,
-            velocity_z: Math.random() * 0.5
+            mass: Math.random() * 1 + 0.5,
+            velocity_x: 0,
+            velocity_y: 0,
+            velocity_z:0,
         }
     })
 }
@@ -129,7 +129,7 @@ function calc_force(orb_1, orb_2) {
     };
 }
 
-
+const max_distance = 5.1;
 
 
 
@@ -145,27 +145,29 @@ function compute_force() {
             let orb_i = env.orbs[i]
             let orb_j = env.orbs[j]
 
-            const { Fx, Fy, Fz } = calc_force(orb_i, orb_j)
-        
 
-            env.orbs[i].force_x += Fx;
-            env.orbs[i].force_y += Fy;
-            env.orbs[i].force_z += Fz;
+            const distance = Math.sqrt((orb_i.x - orb_j.x) ** 2 + (orb_i.y - orb_j.y) ** 2 + (orb_i.z - orb_j.z) ** 2);
 
-            env.orbs[j].force_x -= Fx;
-            env.orbs[j].force_y -= Fy;
-            env.orbs[j].force_z -= Fz;
+            if (distance > max_distance) {
+                continue;
+            } else {
+
+                const { Fx, Fy, Fz } = calc_force(orb_i, orb_j)
+            
+                env.orbs[i].force_x += Fx;
+                env.orbs[i].force_y += Fy;
+                env.orbs[i].force_z += Fz;
+
+                env.orbs[j].force_x -= Fx;
+                env.orbs[j].force_y -= Fy;
+                env.orbs[j].force_z -= Fz;
 
 
 
-            env.orbs[i].force_x  += -env.center_strenth * env.orbs[i].x;
-            env.orbs[i].force_y += -env.center_strenth * env.orbs[i].y;
-            env.orbs[i].force_z += -env.center_strenth * env.orbs[i].z;
+            }
 
 
-            env.orbs[j].force_x  += -env.center_strenth * env.orbs[j].x;
-            env.orbs[j].force_y += -env.center_strenth * env.orbs[j].y;
-            env.orbs[j].force_z += -env.center_strenth * env.orbs[j].z; 
+
 
         }
     }
@@ -194,15 +196,25 @@ function update_orbs(dt) {
         orb.velocity_y += orb.accelerations_y * dt;
         orb.velocity_z += orb.accelerations_z * dt;
 
-     
 
-        
-        
+        /*
+        const damping = 0.99;
+
+        orb.velocity_x *= damping
+        orb.velocity_y *= damping
+        orb.velocity_z *= damping
+        */
+
+
+
+
         orb.x += orb.velocity_x * dt;
         orb.y += orb.velocity_y * dt;
         orb.z += orb.velocity_z * dt;
         
-        
+
+
+
         positions[env.orbs.indexOf(orb) * 3] = orb.x;       
         positions[env.orbs.indexOf(orb) * 3 + 1] = orb.y;
         positions[env.orbs.indexOf(orb) * 3 + 2] = orb.z;
@@ -232,7 +244,6 @@ function updateLines() {
             const distSq = dx * dx + dy * dy + dz * dz;
 
             if (distSq < maxDistSq) {
-
                 positions[index++] = a.x;
                 positions[index++] = a.y;
                 positions[index++] = a.z;
@@ -251,7 +262,7 @@ function updateLines() {
 
 
 
-const maxDistance = 2.0;
+const maxDistance = 5.0;
 const maxDistSq = maxDistance * maxDistance;
 
 const linePositions = new Float32Array(env.orbs.length * env.orbs.length * 6);
@@ -273,16 +284,7 @@ const lineMaterial = new THREE.LineBasicMaterial({
 const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
 scene.add(lines);
 
-
-
-
-
-
-
-
-
 const clock = new THREE.Clock();
-
 
 function animate() {
     requestAnimationFrame(animate);
